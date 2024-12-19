@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Database</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>The Movie Database</h1>
+        <nav>
+            <ul>
+                <li><a href="/index.html">Home</a></li>
+                <li><a href="/watchlist.html">Watchlist</a></li>
+                <li><a href="/about.html">About</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="toplist">
+            <h2>The 10 most popular movies this week</h2>
+            <ol id="topTen">
+                <!-- Filmlistan kommer att läggas till här dynamiskt -->
+            </ol>
+        </section>
+        <section class="search">
+            <form id="searchForm" role="search">
+                <input type="text" id="searchInput" placeholder="Search movies..." aria-label="Search movies">
+                <button type="submit">Search</button>
+            </form>
+        </section>
+        <section class="results">
+            <!-- Innehåll för resultatsektionen -->
+        </section>
+    </main>
+    <footer>
+        <p>This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
+        <a href="https://www.themoviedb.org" target="_blank">
+            <img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_long_2-9665a76b1ae401a510ec1e0ca40ddcb3b0cfe45f1d51b77a308fea0845885648.svg" alt="The Movie Database logo">
+        </a>
+    </footer>
+</body>
+</html>
