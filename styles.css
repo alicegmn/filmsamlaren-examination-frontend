@@ -1,12 +1,4 @@
-/* // <uniquifier>: Use a unique and descriptive class name
-// <weight>: Use a value from 100 to 900 */
-
-.raleway {
-  font-family: "Raleway", serif;
-  font-optical-sizing: auto;
-  font-weight: 200;
-}
-
+/* Font och body-styling */
 body {
     font-family: "Raleway", serif;
     margin: 0;
@@ -37,6 +29,7 @@ body * {
     z-index: 2; /* Se till att innehållet ligger ovanför overlay */
 }
 
+/* Header */
 header {
     color: #fff;
     padding: 10px 0;
@@ -59,31 +52,49 @@ nav ul li a {
     font-weight: bold;
 }
 
+/* Toplist */
 .toplist {
     justify-content: center;
     color: #fff;
+}
+
+.movie-link {
+    color: #fff;
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.movie-link:hover {
+    color: #ccc;
+    text-decoration: none;
 }
 
 main {
     padding: 3vw;
 }
 
+/* Search */
 .search {
     margin-bottom: 20px;
 }
 
+/* Results grid */
 .results {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
 }
 
+/* Movie card styling */
 .movie {
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     transition: transform 0.2s;
+    cursor: pointer;
 }
 
 .movie:hover {
@@ -106,6 +117,144 @@ main {
     color: #666;
 }
 
+/* Modal styling */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 800px;
+    border-radius: 10px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-columns {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.modalDetailsImg {
+    flex: 1;
+    max-width: 40%;
+}
+
+.modalDetailsImg img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.modalDetailsText {
+    flex: 2;
+    max-width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.modalDetailsText h2 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+}
+
+.modalDetailsText p {
+    font-size: 1em;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.modalDetailsText p strong {
+    color: #333;
+    font-weight: bold;
+}
+
+.tmdb-link {
+    color: #007BFF;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.tmdb-link:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}
+
+.streaming-list li a:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: #aaa;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    z-index: 10; /* Lägg till ett högt z-index */
+}
+
+.close-button span {
+    font-size: 24px;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    outline: none;
+    cursor: pointer;
+}
+
+
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.pagination button {
+    background-color: #fff;
+    border: 1px solid #888;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 0 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.pagination button:hover {
+    background-color: #ccc;
+}
+
+/* Footer */
 footer {
     position: relative;
     color: #fff;
