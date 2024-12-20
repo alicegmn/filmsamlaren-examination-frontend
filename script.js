@@ -58,7 +58,20 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         topTenMovies.forEach(movie => {
             const listItem = document.createElement('li');
-            listItem.textContent = movie.title;
+
+            // Skapa en länk för varje film
+            const movieLink = document.createElement('a');
+            movieLink.textContent = movie.title;
+            movieLink.href = '#';
+            movieLink.classList.add('movie-link');
+
+            // Lägg till klickhändelse för att visa modal
+            movieLink.addEventListener('click', async (event) => {
+                event.preventDefault(); // Förhindrar sidladdning
+                await showMovieDetails(movie.id);
+            });
+
+            listItem.appendChild(movieLink);
             topTenMoviesList.appendChild(listItem);
         });
     } catch (error) {
@@ -97,13 +110,18 @@ async function searchMovies(query, page) {
 
             const movieElement = document.createElement('div');
             movieElement.classList.add('movie');
-
             movieElement.innerHTML = `
                 <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title} poster">
                 <h2>${movie.title}</h2>
                 <p>Year: ${new Date(movie.release_date).getFullYear()}</p>
                 <p>Rating: ${(movie.vote_average)}/10 (${movie.vote_count} votes)</p>
             `;
+
+            // Lägg till klickhändelse för att visa modal
+            movieElement.addEventListener('click', async () => {
+                await showMovieDetails(movie.id);
+            });
+
             resultsSection.appendChild(movieElement);
         });
 
@@ -114,6 +132,74 @@ async function searchMovies(query, page) {
         updatePaginationControls(query);
     } catch (error) {
         console.error('Error fetching search results:', error);
+    }
+}
+
+// Funktion för att visa modal med filmens detaljer
+async function showMovieDetails(movieId) {
+    try {
+        const movieDetails = await fetchFromApi(`movie/${movieId}`);
+        const watchProviders = await fetchFromApi(`movie/${movieId}/watch/providers`);
+
+        const modal = document.getElementById('movieModal');
+        
+        // Rensa tidigare innehåll
+        modal.innerHTML = '';
+
+        // Hämta streamingtjänster (endast för Sverige som exempel)
+        const providers = watchProviders.results.SE || {};
+        const streamingProviders = providers.flatrate || [];
+        const tmdbLink = `https://www.themoviedb.org/movie/${movieId}/watch`;
+
+        // Skapa dynamiskt innehåll för modalen
+        modal.innerHTML = `
+        <div class="modal-content">
+            <button class="close-button"><span>&times;</span> Close</button>
+            <div class="modal-columns">
+                <div class="modalDetailsImg">
+                    <img src="https://image.tmdb.org/t/p/w500${movieDetails.poster_path}" alt="${movieDetails.title} poster">
+                </div>
+                <div class="modalDetailsText">
+                    <h2>${movieDetails.title}</h2>
+                    <p>${movieDetails.overview}</p>
+                    <p><strong>Genres:</strong> ${movieDetails.genres.map(genre => genre.name).join(', ')}</p>
+                    <p><strong>Rating:</strong> ${movieDetails.vote_average}/10 (${movieDetails.vote_count} votes)</p>
+                    <p><strong>Year:</strong> ${new Date(movieDetails.release_date).getFullYear()}</p>
+                    ${
+                        streamingProviders.length > 0
+                            ? `<p><strong>Available on:</strong> ${streamingProviders.map(provider => provider.provider_name).join(', ')}</p>`
+                            : `<p><strong>Streaming:</strong> Not available in your region.</p>`
+                    }
+                    <p><a href="${tmdbLink}" target="_blank" class="tmdb-link">Learn more on tmdb.org</a></p>
+                </div>
+            </div>
+        </div>`;
+
+        // Visa modalen
+        modal.classList.remove('hidden');
+        modal.style.display = 'block';
+
+        // Stäng modalen när man klickar på kryss
+        const closeButton = modal.querySelector('.close-button');
+        closeButton.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        // Stäng modalen när man trycker på Escape
+        window.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Stäng modalen när man klickar utanför den
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    } catch (error) {
+        console.error('Error fetching movie details or watch providers:', error);
     }
 }
 
