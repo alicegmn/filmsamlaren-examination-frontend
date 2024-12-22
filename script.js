@@ -79,6 +79,27 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
+async function populateGenreFilter() {
+    try {
+        const genreData = await fetchFromApi('genre/movie/list');
+        const genreSelect = document.getElementById('genreFilter');
+        genreData.genres.forEach(genre => {
+            const option = document.createElement('option');
+            option.value = genre.id;
+            option.textContent = genre.name;
+            genreSelect.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Error fetching genres:', error);
+    }
+}
+
+// Kör funktionen när sidan laddas
+document.addEventListener('DOMContentLoaded', async () => {
+    await populateGenreFilter();
+});
+
+
 // Hantera sökformulär
 document.getElementById('searchForm').addEventListener('submit', async function (event) {
     event.preventDefault();
@@ -92,7 +113,32 @@ async function searchMovies(query, page) {
     try {
         console.log(`Search Query: ${query}, Page: ${page}`);
 
-        const searchData = await fetchFromApi('search/movie', { query: encodeURIComponent(query), page });
+        // Hämta värden för årtal och genre
+        const year = document.getElementById('yearFilter').value;
+        const genre = document.getElementById('genreFilter').value;
+
+        // Välj endpoint baserat på inmatningen
+        let endpoint = '';
+        const params = { page, api_key: apiKey };
+
+        if (query.trim()) {
+            // Använd `search/movie` om endast query används
+            endpoint = 'search/movie';
+            params.query = query.trim();
+        } else {
+            // Använd `discover/movie` om genre eller år används
+            endpoint = 'discover/movie';
+            if (year) params.primary_release_year = year;
+            if (genre) params.with_genres = genre;
+        }
+
+        // Kontrollera att minst en parameter är angiven
+        if (!params.query && !params.with_genres && !params.primary_release_year) {
+            alert('Please enter a search term, select a genre, or specify a year.');
+            return;
+        }
+
+        const searchData = await fetchFromApi(endpoint, params);
         console.log('Search Data:', searchData);
 
         totalPages = searchData.total_pages; // Sätt total antal sidor
@@ -105,6 +151,7 @@ async function searchMovies(query, page) {
             return;
         }
 
+        // Visa filmer i resultatsektionen
         searchData.results.forEach(movie => {
             if (!movie.poster_path) return;
 
@@ -134,6 +181,9 @@ async function searchMovies(query, page) {
         console.error('Error fetching search results:', error);
     }
 }
+
+
+
 
 // Funktion för att visa modal med filmens detaljer
 async function showMovieDetails(movieId) {

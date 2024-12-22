@@ -29,12 +29,17 @@
             </ol>
         </section>
         <section class="search">
-            <p>Search for any movie by their original, translated or alternative title to find out where you can stream it.</p>
+            <p>Search for any movie by title, year, or genre:</p>
             <form id="searchForm" role="search">
                 <input type="text" id="searchInput" placeholder="Search for a movie..." aria-label="Search movies">
+                <select id="genreFilter">
+                    <option value="">All Genres</option>
+                    <!-- Genrer fylls dynamiskt -->
+                </select>
+                <input type="number" id="yearFilter" placeholder="Year" min="1900" max="2024" step="1">
                 <button type="submit">Search</button>
             </form>
-        </section>
+        </section>        
         <!-- Paginering ovanför resultaten -->
         <section class="pagination">
             <!-- Navigeringsknappar för paginering kommer att läggas till här -->

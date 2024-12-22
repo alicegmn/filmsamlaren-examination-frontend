@@ -75,6 +75,83 @@ main {
     padding: 3vw;
 }
 
+/* Search and filter form */
+#searchForm {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.8); /* Ljus bakgrund för kontrast */
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#searchForm input,
+#searchForm select,
+#searchForm button {
+    padding: 10px 15px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+}
+
+#searchInput {
+    flex: 2;
+    min-width: 200px;
+    border: 1px solid #888;
+}
+
+#yearFilter {
+    flex: 1;
+    max-width: 120px;
+    border: 1px solid #888;
+}
+
+#genreFilter {
+    flex: 1;
+    max-width: 180px;
+    border: 1px solid #888;
+}
+
+#searchForm button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#searchForm button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+#searchForm button:active {
+    transform: scale(1);
+}
+
+/* Responsive adjustments for small screens */
+@media (max-width: 768px) {
+    #searchForm {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    #searchInput,
+    #yearFilter,
+    #genreFilter,
+    #searchForm button {
+        width: 100%;
+    }
+}
+
+
+
 /* Search */
 .search {
     margin-bottom: 20px;
