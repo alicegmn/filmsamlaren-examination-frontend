@@ -128,8 +128,8 @@ async function searchMovies(query, page) {
         // Scrolla till toppen av sidan
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
-        // Uppdatera pagineringsknappar
-        updatePaginationControls(query);
+        // Uppdatera pagineringsknappar med totalt antal filmer
+        updatePaginationControls(query, searchData.total_results);
     } catch (error) {
         console.error('Error fetching search results:', error);
     }
@@ -204,27 +204,35 @@ async function showMovieDetails(movieId) {
 }
 
 // Uppdatera pagineringsknappar
-function updatePaginationControls(query) {
-    const paginationSection = document.querySelector('.pagination');
-    paginationSection.innerHTML = '';
+function updatePaginationControls(query, totalResults) {
+    const paginationSections = document.querySelectorAll('.pagination');
+    paginationSections.forEach(paginationSection => {
+        paginationSection.innerHTML = '';
 
-    if (currentPage > 1) {
-        const prevButton = document.createElement('button');
-        prevButton.textContent = 'Previous';
-        prevButton.addEventListener('click', async () => {
-            currentPage--;
-            await searchMovies(query, currentPage);
-        });
-        paginationSection.appendChild(prevButton);
-    }
+        // Visa antal sidor och filmer
+        const infoText = document.createElement('p');
+        infoText.textContent = `Page ${currentPage} of ${totalPages} | Total movies: ${totalResults}`;
+        infoText.classList.add('pagination-info');
+        paginationSection.appendChild(infoText);
 
-    if (currentPage < totalPages) {
-        const nextButton = document.createElement('button');
-        nextButton.textContent = 'Next';
-        nextButton.addEventListener('click', async () => {
-            currentPage++;
-            await searchMovies(query, currentPage);
-        });
-        paginationSection.appendChild(nextButton);
-    }
+        if (currentPage > 1) {
+            const prevButton = document.createElement('button');
+            prevButton.textContent = 'Previous';
+            prevButton.addEventListener('click', async () => {
+                currentPage--;
+                await searchMovies(query, currentPage);
+            });
+            paginationSection.appendChild(prevButton);
+        }
+
+        if (currentPage < totalPages) {
+            const nextButton = document.createElement('button');
+            nextButton.textContent = 'Next';
+            nextButton.addEventListener('click', async () => {
+                currentPage++;
+                await searchMovies(query, currentPage);
+            });
+            paginationSection.appendChild(nextButton);
+        }
+    });
 }

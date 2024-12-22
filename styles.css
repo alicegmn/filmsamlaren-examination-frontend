@@ -3,13 +3,13 @@ body {
     font-family: "Raleway", serif;
     margin: 0;
     padding: 0;
-    background-image: url('https://cdn.sortiraparis.com/images/80/69688/1094465-gladiator-2-paul-mescal-est-lucius.jpg');
+    /* background-image: url('https://cdn.sortiraparis.com/images/80/69688/1094465-gladiator-2-paul-mescal-est-lucius.jpg');
     background-size: cover; /* Gör så att bilden täcker hela sidan */
-    background-position: center; /* Centrerar bilden */
-    background-repeat: no-repeat; /* Förhindrar att bilden upprepas */
-    height: 100vh; /* Sätter höjden till hela vyhöjden */
-    background-attachment: fixed; /* Gör så att bakgrundsbilden är fast */
-    position: relative; /* Behövs för att ::before ska fungera korrekt */
+    /*background-position: center; /* Centrerar bilden */
+    /*background-repeat: no-repeat; /* Förhindrar att bilden upprepas */
+    /*height: 100vh; /* Sätter höjden till hela vyhöjden */
+   /* background-attachment: fixed; /* Gör så att bakgrundsbilden är fast */
+   /* position: relative; /* Behövs för att ::before ska fungera korrekt */
 }
 
 body::before {
@@ -237,7 +237,13 @@ main {
     display: flex;
     justify-content: center;
     margin: 20px 0;
+    text-align: center;
 }
+
+.results + .pagination {
+    margin-top: 10px; /* Specifikt för paginering under resultat */
+}
+
 
 .pagination button {
     background-color: #fff;
@@ -252,6 +258,13 @@ main {
 
 .pagination button:hover {
     background-color: #ccc;
+}
+
+.pagination-info {
+    margin-bottom: 10px;
+    font-size: 0.9em;
+    color: #666;
+    text-align: center;
 }
 
 /* Footer */
