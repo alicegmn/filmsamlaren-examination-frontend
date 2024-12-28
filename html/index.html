@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Database</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="icon" href="/img/logo.png" type="image/png"> <!-- Lägg till denna rad -->
+    <script src="/script.js" defer></script>
+</head>
+<body>
+    <header>
+        <img src="/img/logo.png" alt="Logo" class="logo"> <!-- Lägg till logotypen här -->
+        <nav>
+            <ul>
+                <li><a href="/html/index.html">Hem</a></li>
+                <li><a href="/html/listor.html">Dina listor</a></li>
+                <li><a href="/html/om-oss.html">Om oss</a></li>
+                </ul>
+            </nav>
+            <h1>Alla dina filmer - på ett och samma ställe</h1>
+    </header>
+    <main>
+        <section class="toplist">
+            <h2>Veckans topplista</h2>
+            <ol id="topTen">
+                <!-- Filmlistan kommer att läggas till här dynamiskt -->
+            </ol>
+        </section>
+        <section class="search">
+            <h2>Vilken film vill du se idag?</h2>
+            <p>Sök efter din nästa favoritfilm. Du kan söka på titel, år och/eller genre:</p>
+            <form id="searchForm" role="search">
+                <input type="text" id="searchInput" placeholder="Search for a movie..." aria-label="Search movies">
+                <select id="genreFilter">
+                    <option value="">All Genres</option>
+                    <!-- Genrer fylls dynamiskt -->
+                </select>
+                <input type="number" id="yearFilter" placeholder="Year" min="1900" max="2024" step="1">
+                <button type="submit">Search</button>
+            </form>
+        </section>        
+        <!-- Paginering ovanför resultaten -->
+        <section class="pagination">
+            <!-- Navigeringsknappar för paginering kommer att läggas till här -->
+        </section>
+        <section class="results">
+            <!-- Innehåll för resultatsektionen -->
+        </section>
+        <!-- Paginering under resultaten -->
+        <section class="pagination">
+            <!-- Navigeringsknappar för paginering kommer att läggas till här -->
+        </section>
+        <!-- Modal för att visa filmens detaljer -->
+        <div id="movieModal" class="modal hidden">
+            <!-- Filmens information fylls här dynamiskt -->
+        </div>
+    </main>
+    <footer>
+        <div class="footer-container">
+            <div class="contact-info">
+                <h3>Kontaktuppgifter</h3>
+                <p>Email: info@hemmakvall.se</p>
+                <p>Telefon: 0123-456 789</p>
+                <p>Adress: Hemmakväll AB, Exempelgatan 1, 123 45 Stad</p>
+            </div>
+            <div class="tmdb-info">
+                <h3>Filmsamlaren</h3>
+                <p>Vi använder TMDBs API för denna tjänst, men tjänsten är inte i samarbete med eller godkänd av TMDB.</p>
+                <a href="https://www.themoviedb.org" target="_blank">
+                    <img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_long_2-9665a76b1ae401a510ec1e0ca40ddcb3b0cfe45f1d51b77a308fea0845885648.svg" alt="The Movie Database logo">
+                </a>
+            </div>
+            <div class="social-media">
+                <h3>Följ oss</h3>
+                <ul>
+                    <li><a href="https://www.facebook.com/hemmakvall" target="_blank">Facebook</a></li>
+                    <li><a href="https://www.instagram.com/hemmakvall_sverige/" target="_blank">Instagram</a></li>
+                    <li><a href="https://www.tiktok.com/@hemmakvall.sverige" target="_blank">TikTok</a></li>
+                    <li><a href="https://www.linkedin.com/company/hemmakvall-ab/" target="_blank">LinkedIn</a></li>
+                    <li><a href="https://www.mynewsdesk.com/se/hemmakvall" target="_blank">Mynewsdesk</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

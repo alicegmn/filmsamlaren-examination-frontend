@@ -1,15 +1,30 @@
 /* Font och body-styling */
 body {
-    font-family: "Raleway", serif;
+    font-family: "Mikado regular", sans-serif;
     margin: 0;
     padding: 0;
-    /* background-image: url('https://cdn.sortiraparis.com/images/80/69688/1094465-gladiator-2-paul-mescal-est-lucius.jpg');
-    background-size: cover; /* Gör så att bilden täcker hela sidan */
-    /*background-position: center; /* Centrerar bilden */
-    /*background-repeat: no-repeat; /* Förhindrar att bilden upprepas */
-    /*height: 100vh; /* Sätter höjden till hela vyhöjden */
-   /* background-attachment: fixed; /* Gör så att bakgrundsbilden är fast */
-   /* position: relative; /* Behövs för att ::before ska fungera korrekt */
+    background-color: black;
+    color: #fff; /* Detta gör att all text i body är vit */
+}
+
+@font-face {
+    font-family: 'Mikado black';
+    src: url('/fonts/mikado/HVD\ Fonts\ \ MikadoBlack.otf') format('opentype');
+    font-weight: normal; /* Valfritt: normal, bold, etc. */
+    font-style: normal;  /* Valfritt: normal, italic, etc. */
+}
+
+@font-face {
+    font-family: 'Mikado regular';
+    src: url('/fonts/mikado/HVD\ Fonts\ \ MikadoRegular.otf') format('opentype');
+    font-weight: normal; /* Valfritt: normal, bold, etc. */
+    font-style: normal;  /* Valfritt: normal, italic, etc. */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Mikado black', sans-serif;
+    letter-spacing: 0.06em;
+    text-transform: uppercase; /* Gör alla rubriker till versaler */
 }
 
 body::before {
@@ -29,10 +44,21 @@ body * {
     z-index: 2; /* Se till att innehållet ligger ovanför overlay */
 }
 
+.logo {
+    width: clamp(2rem, 200px, 20%); /* Justera storleken efter behov */
+    height: auto;
+    margin-right: 10px; /* Avstånd mellan logotyp och titel */
+    vertical-align: middle; /* Justera vertikalt */
+}
+
 /* Header */
 header {
-    color: #fff;
-    padding: 10px 0;
+    display: flex; /* Använd flexbox */
+    flex-direction: column; /* Ställ in riktningen till kolumn */
+    align-items: center; /* Centrera horisontellt */
+    text-align: center; /* Centrera texten */
+    color: #fff; /* Om du vill att texten ska vara vit */
+    padding: 10px 0; /* Justera padding efter behov */
 }
 
 nav ul {
@@ -48,8 +74,12 @@ nav ul li {
 
 nav ul li a {
     color: #fff;
-    text-decoration: none;
+    text-decoration: underline;
     font-weight: bold;
+}
+
+nav ul li a.active {
+    color: #E93BAC;
 }
 
 /* Toplist */
@@ -248,6 +278,7 @@ main {
 .modalDetailsText h2 {
     font-size: 1.8em;
     margin-bottom: 10px;
+    color: #000;
 }
 
 .modalDetailsText p {
@@ -346,19 +377,44 @@ main {
 
 /* Footer */
 footer {
-    position: relative;
+    margin: 0; /* Tar bort eventuell margin */
+    padding: 0; /* Tar bort eventuell padding om det finns */
+    position: relative; /* Se till att footern är relativt positionerad */
+    bottom: 0; /* Sätter footern till botten av sidan */
+    width: 100%; /* Gör footern full bredd */
     color: #fff;
     text-align: left;
-    padding: 1rem;
-    width: 100%;
-    bottom: 0;
-}
-
-footer p {
-    font-size: 10px;
 }
 
 footer img {
     width: 100px;
     margin-top: 10px;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between; /* För att fördela kolumnerna jämnt */
+    padding: 20px;
+    background-color: #222; /* Bakgrundsfärg för footern */
+    color: #fff; /* Textfärg */
+}
+
+.footer-container div {
+    flex: 1; /* Gör varje kolumn lika bred */
+    margin: 0 10px; /* Avstånd mellan kolumnerna */
+}
+
+.footer-container h3 {
+    margin-bottom: 10px; /* Avstånd under rubriker */
+}
+
+.social-media ul {
+    list-style-type: none; /* Tar bort punkterna framför listpunkterna */
+    padding: 0; /* Tar bort eventuell padding */
+    margin: 0; /* Tar bort eventuell margin */
+}
+
+a {
+    color: #E93BAC; /* Sätter färgen på alla länkar */
+    text-decoration: underline; /* Gör så att alla länkar är understrukna */
 }
