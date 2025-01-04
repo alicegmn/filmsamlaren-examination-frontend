@@ -189,7 +189,7 @@ main {
 /* Results grid */
 .results {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Standard: 2 kolumner */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Anpassar kolumner baserat på tillgänglig bredd */
     gap: 20px;
 }
 
@@ -263,17 +263,19 @@ main {
     position: relative;
     display: flex;
     flex-direction: column;
+    color: #000;
 }
 
 .modal-columns {
     display: flex;
-    flex-direction: row;
+    flex-direction: row; /* Ändrat till rad för desktop */
     gap: 20px;
 }
 
+/* Justera bildens stil */
 .modalDetailsImg {
-    flex: 1;
-    max-width: 40%;
+    flex: 1; /* Gör så att bilden tar upp 50% av bredden */
+    max-width: 50%; /* Maxbredd för desktop */
 }
 
 .modalDetailsImg img {
@@ -282,12 +284,25 @@ main {
     border-radius: 8px;
 }
 
+/* Textinnehåll */
 .modalDetailsText {
-    flex: 2;
-    max-width: 60%;
+    flex: 1; /* Gör så att texten tar upp 50% av bredden */
+    max-width: 50%; /* Maxbredd för desktop */
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+/* Responsiv justering för mobil */
+@media (max-width: 768px) {
+    .modal-columns {
+        flex-direction: column; /* Ändra till kolumn för mobil */
+    }
+
+    .modalDetailsImg,
+    .modalDetailsText {
+        max-width: 100%; /* Gör så att de tar upp hela bredden */
+    }
 }
 
 .modalDetailsText h2 {
@@ -352,8 +367,6 @@ main {
     outline: none;
     cursor: pointer;
 }
-
-
 
 /* Pagination */
 .pagination {
@@ -460,15 +473,8 @@ a {
 /* Topplista styling */
 .toplist-results {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Standard: 2 kolumner */
+    grid-template-columns: repeat(auto-fill, minmax(175px, 1fr)); /* Anpassar kolumner baserat på tillgänglig bredd */
     gap: 20px;
-}
-
-/* För skärmar som är 768px eller bredare */
-@media (min-width: 768px) {
-    .toplist-results {
-        grid-template-columns: repeat(5, 1fr); /* 5 kolumner */
-    }
 }
 
 /* Overlay för filmens placering */

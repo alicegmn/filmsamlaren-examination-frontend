@@ -57,14 +57,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         const topTenMovies = trendingMovies.results.slice(0, 10);
 
 topTenMovies.forEach((movie, index) => {
+    console.log(movie); // Logga hela movie-objektet för att se dess struktur
+    console.log('Genres:', movie.genres); // Logga genrerna för att se vad som returneras
     const movieElement = document.createElement('div');
     movieElement.classList.add('movie');
     movieElement.innerHTML = `
         <div class="movie-overlay">${index + 1}</div>
         <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title} poster">
         <h2>${movie.title}</h2>
-        <p>Year: ${new Date(movie.release_date).getFullYear()}</p>
-        <p>Rating: ${(movie.vote_average)}/10 (${movie.vote_count} votes)</p>
+        <p>${new Date(movie.release_date).getFullYear()} | Rating: ${(movie.vote_average)}/10 (${movie.vote_count} votes)</p>
     `;
 
     // Lägg till klickhändelse för att visa modal
@@ -181,8 +182,7 @@ async function searchMovies(query, page) {
             movieElement.innerHTML = `
                 <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title} poster">
                 <h2>${movie.title}</h2>
-                <p>Year: ${new Date(movie.release_date).getFullYear()}</p>
-                <p>Rating: ${(movie.vote_average)}/10 (${movie.vote_count} votes)</p>
+                <p>${new Date(movie.release_date).getFullYear()} | Rating: ${(movie.vote_average)}/10 (${movie.vote_count} votes)</p>
             `;
 
             // Lägg till klickhändelse för att visa modal
