@@ -82,14 +82,13 @@ nav ul li a.active {
     color: #E93BAC;
 }
 
-/* Toplist */
-.toplist {
-    justify-content: center;
-    color: #fff;
+/* Overlay för filmens placering */
+.movie {
+    position: relative; /* Gör så att overlay kan positioneras relativt till filmen */
 }
 
 .movie-link {
-    color: #fff;
+    color: #000;
     text-decoration: underline;
     cursor: pointer;
     font-weight: bold;
@@ -102,7 +101,7 @@ nav ul li a.active {
 }
 
 main {
-    padding: 3vw;
+    padding: 10vw;
 }
 
 /* Search and filter form */
@@ -190,8 +189,22 @@ main {
 /* Results grid */
 .results {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(2, 1fr); /* Standard: 2 kolumner */
     gap: 20px;
+}
+
+/* För skärmar som är 768px eller bredare */
+@media (min-width: 768px) {
+    .results {
+        grid-template-columns: repeat(5, 1fr); /* 5 kolumner */
+    }
+}
+
+/* För skärmar som är 1024px eller bredare */
+@media (min-width: 1024px) {
+    .results {
+        grid-template-columns: repeat(5, 1fr); /* 5 kolumner */
+    }
 }
 
 /* Movie card styling */
@@ -202,6 +215,8 @@ main {
     overflow: hidden;
     transition: transform 0.2s;
     cursor: pointer;
+    color: #000;
+    position: relative; /* Gör så att overlay kan positioneras relativt till filmen */
 }
 
 .movie:hover {
@@ -316,7 +331,7 @@ main {
     right: 10px;
     background: none;
     border: none;
-    color: #aaa;
+    color: #000;
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
@@ -417,4 +432,73 @@ footer img {
 a {
     color: #E93BAC; /* Sätter färgen på alla länkar */
     text-decoration: underline; /* Gör så att alla länkar är understrukna */
+}
+
+/* Overlay för filmens placering */
+.movie-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Svart transparent bakgrund */
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3em; /* Större storlek för siffran */
+    font-weight: bold; /* Fet stil */
+    opacity: 1; /* Visar overlay som standard */
+    transition: opacity 0.3s ease; /* Lägger till en övergångseffekt */
+    z-index: 1000; /* Se till att overlay ligger ovanpå bilden */
+}
+
+.movie:hover .movie-overlay {
+    opacity: 0; /* Döljer overlay när man hovrar över filmen */
+}
+
+/* Topplista styling */
+.toplist-results {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Standard: 2 kolumner */
+    gap: 20px;
+}
+
+/* För skärmar som är 768px eller bredare */
+@media (min-width: 768px) {
+    .toplist-results {
+        grid-template-columns: repeat(5, 1fr); /* 5 kolumner */
+    }
+}
+
+/* Overlay för filmens placering */
+.movie {
+    position: relative; /* Gör så att overlay kan positioneras relativt till filmen */
+}
+
+.movie img {
+    width: 100%; /* Gör så att bilden täcker hela bredden */
+    height: auto; /* Bevara bildens proportioner */
+}
+
+.movie-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Svart transparent bakgrund */
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3em; /* Större storlek för siffran */
+    font-weight: bold; /* Fet stil */
+    opacity: 1; /* Visar overlay som standard */
+    transition: opacity 0.3s ease; /* Lägger till en övergångseffekt */
+    z-index: 1000; /* Se till att overlay ligger ovanpå bilden */
+}
+
+.movie:hover .movie-overlay {
+    opacity: 0; /* Döljer overlay när man hovrar över filmen */
 }

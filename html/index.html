@@ -26,15 +26,15 @@
     <main>
         <section class="toplist">
             <h2>Veckans topplista</h2>
-            <ol id="topTen">
-                <!-- Filmlistan kommer att läggas till här dynamiskt -->
-            </ol>
+            <div id="topTen" class="toplist-results">
+                <!-- Filmlisten kommer att läggas till här dynamiskt -->
+            </div>
         </section>
         <section class="search">
             <h2>Vilken film vill du se idag?</h2>
             <p>Sök efter din nästa favoritfilm. Du kan söka på titel, år och/eller genre:</p>
             <form id="searchForm" role="search">
-                <input type="text" id="searchInput" placeholder="Search for a movie..." aria-label="Search movies">
+                <input type="text" id="searchInput" placeholder="Sök på filmtitel..." aria-label="Search movies">
                 <select id="genreFilter">
                     <option value="">All Genres</option>
                     <!-- Genrer fylls dynamiskt -->

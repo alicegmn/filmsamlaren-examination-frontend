@@ -56,27 +56,48 @@ document.addEventListener('DOMContentLoaded', async () => {
         const topTenMoviesList = document.getElementById('topTen');
         const topTenMovies = trendingMovies.results.slice(0, 10);
 
-        topTenMovies.forEach(movie => {
-            const listItem = document.createElement('li');
+topTenMovies.forEach((movie, index) => {
+    const movieElement = document.createElement('div');
+    movieElement.classList.add('movie');
+    movieElement.innerHTML = `
+        <div class="movie-overlay">${index + 1}</div>
+        <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title} poster">
+        <h2>${movie.title}</h2>
+        <p>Year: ${new Date(movie.release_date).getFullYear()}</p>
+        <p>Rating: ${(movie.vote_average)}/10 (${movie.vote_count} votes)</p>
+    `;
 
-            // Skapa en länk för varje film
-            const movieLink = document.createElement('a');
-            movieLink.textContent = movie.title;
-            movieLink.href = '#';
-            movieLink.classList.add('movie-link');
+    // Lägg till klickhändelse för att visa modal
+    movieElement.addEventListener('click', async () => {
+        await showMovieDetails(movie.id);
+    });
 
-            // Lägg till klickhändelse för att visa modal
-            movieLink.addEventListener('click', async (event) => {
-                event.preventDefault(); // Förhindrar sidladdning
-                await showMovieDetails(movie.id);
-            });
-
-            listItem.appendChild(movieLink);
-            topTenMoviesList.appendChild(listItem);
-        });
+    topTenMoviesList.appendChild(movieElement);
+});
     } catch (error) {
         console.error('Error during initialization:', error);
     }
+
+    // Lägg till event listener för sökfältet
+    document.getElementById('searchInput').addEventListener('input', async function () {
+        const query = this.value.trim();
+        currentPage = 1; // Återställ till första sidan
+        await searchMovies(query, currentPage); // Anropa sökfunktionen
+    });
+
+    // Lägg till event listener för genre-filter
+    document.getElementById('genreFilter').addEventListener('change', async function () {
+        currentPage = 1; // Återställ till första sidan
+        const query = document.getElementById('searchInput').value.trim(); // Hämta nuvarande sökfråga
+        await searchMovies(query, currentPage); // Anropa sökfunktionen
+    });
+
+    // Lägg till event listener för år-filter
+    document.getElementById('yearFilter').addEventListener('change', async function () {
+        currentPage = 1; // Återställ till första sidan
+        const query = document.getElementById('searchInput').value.trim(); // Hämta nuvarande sökfråga
+        await searchMovies(query, currentPage); // Anropa sökfunktionen
+    });
 });
 
 async function populateGenreFilter() {
@@ -172,8 +193,8 @@ async function searchMovies(query, page) {
             resultsSection.appendChild(movieElement);
         });
 
-        // Scrolla till toppen av sidan
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Scrolla till toppen av resultatsektionen
+        window.scrollTo({ top: document.querySelector('.results').offsetTop, behavior: 'smooth' });
 
         // Uppdatera pagineringsknappar med totalt antal filmer
         updatePaginationControls(query, searchData.total_results);
