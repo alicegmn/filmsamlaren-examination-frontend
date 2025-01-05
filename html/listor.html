@@ -12,26 +12,29 @@
     <script src="/script.js" defer></script>
 </head>
 <body>
+    <a href="#mainContent" class="skip-link">Gå direkt till huvudinnehållet</a>
     <header>
-        <img src="/img/logo.png" alt="Logo" class="logo"> <!-- Lägg till logotypen här -->
+        <a href="/html/index.html" aria-label="Gå till startsidan">
+            <img src="/img/logo.png" alt="Logo" class="logo" aria-label="Logotyp för Hemmakvälls Filmsamlare"> <!-- Lägg till logotypen här -->
+        </a>
         <nav>
             <ul>
-                <li><a href="/html/index.html">Hem</a></li>
-                <li><a href="/html/index.html#searchForm">Filmer</a></li>
-                <li><a href="/html/listor.html">Dina listor</a></li>
-                <li><a href="/html/om-oss.html">Om oss</a></li>
+                <li><a href="/html/index.html" aria-label="Gå till startsidan">Hem</a></li>
+                <li><a href="/html/index.html#searchForm" aria-label="Sök efter filmer">Filmer</a></li>
+                <li><a href="/html/listor.html" aria-label="Gå till dina listor">Dina listor</a></li>
+                <li><a href="/html/om-oss.html" aria-label="Information om Hemmakväll">Om oss</a></li>
             </ul>
         </nav>
         <h1>Dina listor</h1>
     </header>
-    <main>
+    <main id="mainContent">
         <section class="watch-list">
             <h2>Filmer jag vill se</h2>
         </section>
         <section class="findAStore cta-section">
             <h2>Du har väl snacks till filmen?</h2>
             <p>Ingen hemmakväll utan godsaker från Hemmakväll.</p>
-            <a href="https://www.hemmakvall.se/hitta-butik/" target="_blank">Hitta din närmaste butik på hemmakvall.se</a>
+            <a href="https://www.hemmakvall.se/hitta-butik/" target="_blank" aria-label="Gå till Hemmakväll.se och hitta närmaste butik Hemmakväll-butik">Hitta din närmasta butik på hemmakvall.se</a>
         </section>
         <section class="favorite-list">
             <h2>Mina favoritfilmer</h2>

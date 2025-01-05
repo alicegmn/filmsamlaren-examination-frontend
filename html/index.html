@@ -12,14 +12,17 @@
     <script src="/script.js" defer></script>
 </head>
 <body>
+    <a href="#mainContent" class="skip-link">Gå direkt till huvudinnehållet</a>
     <header>
-        <img src="/img/logo.png" alt="Logo" class="logo"> <!-- Lägg till logotypen här -->
+        <a href="/html/index.html" aria-label="Gå till startsidan">
+            <img src="/img/logo.png" alt="Logo" class="logo" aria-label="Logotyp för Hemmakvälls Filmsamlare"> <!-- Lägg till logotypen här -->
+        </a>
         <nav>
             <ul>
-                <li><a href="/html/index.html">Hem</a></li>
-                <li><a href="/html/index.html#searchForm">Filmer</a></li>
-                <li><a href="/html/listor.html">Dina listor</a></li>
-                <li><a href="/html/om-oss.html">Om oss</a></li>
+                <li><a href="/html/index.html" aria-label="Gå till startsidan">Hem</a></li>
+                <li><a href="/html/index.html#searchForm" aria-label="Sök efter filmer">Filmer</a></li>
+                <li><a href="/html/listor.html" aria-label="Gå till dina listor">Dina listor</a></li>
+                <li><a href="/html/om-oss.html" aria-label="Information om oss">Om oss</a></li>
             </ul>
         </nav>
         <h1>Alla dina filmer - på ett och samma ställe</h1>
@@ -34,9 +37,9 @@
         <section class="findAStore cta-section">
             <h2>Snacks till filmen?</h2>
             <p>Ingen hemmakväll utan godsaker från Hemmakväll.</p>
-            <a href="https://www.hemmakvall.se/hitta-butik/" target="_blank">Hitta en butik nära dig på hemmakvall.se</a>
+            <a href="https://www.hemmakvall.se/hitta-butik/" target="_blank" aria-label="Se vart Hemmakvälls butiker finns">Hitta din närmsta butik</a>
         </section>
-        <section class="search">
+        <section class="search" id="mainContent">
             <h2>Vilken film vill du se idag?</h2>
             <p>Sök efter din nästa favoritfilm. Du kan söka på titel, år och/eller genre:</p>
             <form id="searchForm" role="search">
@@ -52,14 +55,14 @@
                 <label for="yearFilter">Ange år:</label> <!-- Label for the year filter -->
                 <input type="number" id="yearFilter" placeholder="År" min="1900" max="2024" step="1" aria-label="Ange år">
                 
-                <button type="submit" aria-label="Sök">Sök</button> <!-- Updated to Swedish -->
+                <button type="submit" aria-label="Sök efter filmer">Sök</button> <!-- Lagt till aria-label för sökknappen -->
             </form>
         </section>        
         <!-- Paginering ovanför resultaten -->
         <section class="pagination">
             <!-- Navigeringsknappar för paginering kommer att läggas till här -->
         </section>
-        <div id="searchMessage" class="hidden"></div>
+        <div id="searchMessage" class="hidden" aria-live="polite" aria-label="Meddelande om sökresultat"></div> <!-- Lagt till aria-live för dynamiska meddelanden -->
         <section class="results">
             <!-- Innehåll för resultatsektionen -->
         </section>
@@ -71,9 +74,9 @@
         <div id="movieModal" class="modal hidden">
             <!-- Filmens information fylls här dynamiskt -->
         </div>
-        <div id="errorNotification" class="notification hidden">
-            <p id="errorMessage"></p>
-            <button onclick="closeNotification()">Stäng meddelandet</button>
+        <div id="errorNotification" class="notification hidden" aria-label="Felmeddelande"> <!-- Lagt till aria-label för felmeddelande -->
+            <p id="errorMessage" aria-live="assertive"></p> <!-- Lagt till aria-live för att meddela fel -->
+            <button onclick="closeNotification()" aria-label="Stäng felmeddelandet">Stäng meddelandet</button>
         </div>
     </main>
     <footer>

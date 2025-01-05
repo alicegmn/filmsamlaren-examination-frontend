@@ -87,11 +87,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             
             const movieElement = document.createElement('div'); // Create a new div for the movie
             movieElement.classList.add('movie'); // Add the 'movie' class to the div
-            
+            movieElement.setAttribute('aria-label', `Film: ${fallbacks.title}, Betyg: ${fallbacks.voteAverage}/10`); // Lägg till aria-label
+
             // Set the inner HTML of the movie element with movie details in Swedish
             movieElement.innerHTML = `
                 <div class="movie-overlay">${index + 1}</div>
-                <img src="${fallbacks.posterPath}" alt="${fallbacks.title} poster">
+                <img src="${fallbacks.posterPath}" alt="${fallbacks.title} poster" aria-label="${fallbacks.title} filmplakat">
                 <h3>${fallbacks.title}</h3>
                 <p>${fallbacks.releaseYear} | Betyg: ${fallbacks.voteAverage}/10 (${fallbacks.voteCount} röster)</p>
             `;
@@ -307,10 +308,10 @@ async function showMovieDetails(movieId) {
         const modal = document.getElementById('movieModal');
         modal.innerHTML = `
         <div class="modal-content">
-            <button class="close-button"><span>&times;</span> Stäng</button>
+            <button class="close-button" aria-label="Stäng ner sidan som visar detaljer om filmen.">Stäng</button>
             <div class="modal-columns">
                 <div class="modalDetailsImg">
-                    <img src="${fallbacks.posterPath}" alt="${fallbacks.title} poster">
+                    <img src="${fallbacks.posterPath}" alt="${fallbacks.title} poster" aria-label="${fallbacks.title} poster">
                 </div>
                 <div class="modalDetailsText">
                     <h3>${fallbacks.title}</h3>
@@ -321,7 +322,7 @@ async function showMovieDetails(movieId) {
                     <p><strong>Regissör:</strong> ${fallbacks.director}</p>
                     <p><strong>Originalspråk:</strong> ${fallbacks.originalLanguage}</p>
                     <p><strong>Streama filmen här:</strong> ${streamingText}</p>
-                    <p><a href="https://www.themoviedb.org/movie/${movieId}" target="_blank" class="tmdb-link">Läs mer på tmdb.org</a></p>
+                    <p><a href="https://www.themoviedb.org/movie/${movieId}" target="_blank" aria-label="Läs mer om ${fallbacks.title} på TMDB">Läs mer på tmdb.org</a></p>
                 </div>
             </div>
         </div>`;
@@ -371,6 +372,7 @@ function updatePaginationControls(query, totalResults) {
         if (currentPage > 1) {
             const prevButton = document.createElement('button'); // Create a new button element
             prevButton.textContent = 'Föregående'; // Set the button text
+            prevButton.setAttribute('aria-label', 'Gå till föregående sida'); // Lagt till aria-label för föregående knapp
             // Add an event listener to go to the previous page when clicked
             prevButton.addEventListener('click', async () => {
                 currentPage--; // Decrement the current page
@@ -383,6 +385,7 @@ function updatePaginationControls(query, totalResults) {
         if (currentPage < totalPages) {
             const nextButton = document.createElement('button'); // Create a new button element
             nextButton.textContent = 'Nästa'; // Set the button text
+            nextButton.setAttribute('aria-label', 'Gå till nästa sida'); // Lagt till aria-label för nästa knapp
             // Add an event listener to go to the next page when clicked
             nextButton.addEventListener('click', async () => {
                 currentPage++; // Increment the current page
