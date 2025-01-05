@@ -164,6 +164,13 @@ main {
     transform: scale(1);
 }
 
+/* Lägg till detta i din CSS-fil */
+#searchMessage {
+    color: red; /* Färg på meddelandet */
+    font-weight: bold; /* Fet stil */
+    margin: 10px 0; /* Marginal för avstånd */
+}
+
 /* Responsive adjustments for small screens */
 @media (max-width: 768px) {
     #searchForm {
@@ -228,7 +235,7 @@ main {
     height: auto;
 }
 
-.movie h2 {
+.movie h3 {
     font-size: 1.2em;
     margin: 10px;
 }
@@ -507,4 +514,68 @@ a {
 
 .movie:hover .movie-overlay {
     opacity: 0; /* Döljer overlay när man hovrar över filmen */
+}
+
+.cta-section {
+    background-color: #E93BAC; /* Bakgrundsfärg för att sticka ut */
+    color: white; /* Textfärg */
+    padding: 1rem; /* Padding för att ge utrymme */
+    border-radius: 10px; /* Rundade hörn */
+    text-align: center; /* Centrera texten */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Skugga för djup */
+    margin: 20px 0; /* Marginal för att separera från andra sektioner */
+    transition: transform 0.3s; /* Övergångseffekt för hover */
+}
+
+.cta-section:hover {
+    transform: scale(1.05); /* Förstora sektionen vid hover */
+}
+
+.cta-section a {
+    background-color: white; /* Bakgrundsfärg för knappen */
+    color: #E93BAC; /* Textfärg för knappen */
+    padding: 10px 20px; /* Padding för knappen */
+    border-radius: 5px; /* Rundade hörn för knappen */
+    text-decoration: none; /* Ta bort understrykning */
+    font-weight: bold; /* Fet stil för knappen */
+    transition: background-color 0.3s; /* Övergångseffekt för hover */
+}
+
+.cta-section h2 {
+    margin-bottom: 0px; /* Minska marginalen mellan rubriken och brödtexten */
+}
+
+.cta-section p {
+    margin-top: 0px;
+    margin-bottom: 20px; /* Öka marginalen mellan brödtexten och knappen */
+}
+
+.cta-section a:hover {
+    background-color: #ccc; /* Ljusare bakgrund vid hover */
+    color: #000;
+}
+
+.notification {
+    position: fixed;
+    top: 50%; /* Centrera vertikalt */
+    left: 50%; /* Centrera horisontellt */
+    transform: translate(-50%, -50%); /* Justera för att centrera exakt */
+    background-color: #ff9800; /* Orange bakgrund */
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    z-index: 2000; /* Se till att den ligger ovanpå annat innehåll */
+    display: flex;
+    flex-direction: column; /* Ändra till kolumn för att stapla elementen */
+    align-items: center; /* Centrera innehållet horisontellt */
+    min-width: 300px; /* Sätt en minimi-bredd för notifieringsrutan */
+    text-align: center; /* Centrera texten */
+}
+
+.notification button {
+    margin-top: 10px; /* Lägg till avstånd mellan texten och knappen */
+}
+
+.notification.hidden {
+    display: none; /* Döljer notifieringsrutan */
 }

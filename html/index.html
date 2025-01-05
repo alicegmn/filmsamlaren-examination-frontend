@@ -31,23 +31,35 @@
                 <!-- Filmlisten kommer att läggas till här dynamiskt -->
             </div>
         </section>
+        <section class="findAStore cta-section">
+            <h2>Snacks till filmen?</h2>
+            <p>Ingen hemmakväll utan godsaker från Hemmakväll.</p>
+            <a href="https://www.hemmakvall.se/hitta-butik/" target="_blank">Hitta en butik nära dig på hemmakvall.se</a>
+        </section>
         <section class="search">
             <h2>Vilken film vill du se idag?</h2>
             <p>Sök efter din nästa favoritfilm. Du kan söka på titel, år och/eller genre:</p>
             <form id="searchForm" role="search">
-                <input type="text" id="searchInput" placeholder="Sök på filmtitel..." aria-label="Search movies">
-                <select id="genreFilter">
-                    <option value="">All Genres</option>
+                <label for="searchInput">Sök på filmtitel:</label> <!-- Label for the search input -->
+                <input type="text" id="searchInput" placeholder="Sök på filmtitel..." aria-label="Sök på filmtitel">
+                
+                <label for="genreFilter">Välj genre:</label> <!-- Label for the genre filter -->
+                <select id="genreFilter" aria-label="Välj genre">
+                    <option value="">Välj en genre:</option>
                     <!-- Genrer fylls dynamiskt -->
                 </select>
-                <input type="number" id="yearFilter" placeholder="Year" min="1900" max="2024" step="1">
-                <button type="submit">Search</button>
+                
+                <label for="yearFilter">Ange år:</label> <!-- Label for the year filter -->
+                <input type="number" id="yearFilter" placeholder="År" min="1900" max="2024" step="1" aria-label="Ange år">
+                
+                <button type="submit" aria-label="Sök">Sök</button> <!-- Updated to Swedish -->
             </form>
         </section>        
         <!-- Paginering ovanför resultaten -->
         <section class="pagination">
             <!-- Navigeringsknappar för paginering kommer att läggas till här -->
         </section>
+        <div id="searchMessage" class="hidden"></div>
         <section class="results">
             <!-- Innehåll för resultatsektionen -->
         </section>
@@ -59,6 +71,10 @@
         <div id="movieModal" class="modal hidden">
             <!-- Filmens information fylls här dynamiskt -->
         </div>
+        <div id="errorNotification" class="notification hidden">
+            <p id="errorMessage"></p>
+            <button onclick="closeNotification()">Stäng meddelandet</button>
+        </div>
     </main>
     <footer>
         <div class="footer-container">
@@ -66,7 +82,7 @@
                 <h3>Kontakta oss</h3>
                 <p>Email: info@hemmakvall.se</p>
                 <p>Telefon: 0123-456 789</p>
-                <p>Adress: Hemmakväll AB, Exempelgatan 1, 123 45 Stad</p>
+                <a href="https://www.hemmakvall.se/hitta-butik/" target="_blank">Hitta närmsta butik</a>
             </div>
             <div class="tmdb-info">
                 <h3>Filmsamlaren</h3>
