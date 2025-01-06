@@ -91,10 +91,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             // Set the inner HTML of the movie element with movie details in Swedish
             movieElement.innerHTML = `
-                <div class="movie-overlay">${index + 1}</div>
-                <img src="${fallbacks.posterPath}" alt="${fallbacks.title} poster" aria-label="${fallbacks.title} filmplakat">
-                <h3>${fallbacks.title}</h3>
-                <p>${fallbacks.releaseYear} | Betyg: ${fallbacks.voteAverage}/10 (${fallbacks.voteCount} röster)</p>
+                <div class="movie-overlay" aria-hidden="true">${index + 1}</div>
+                <img src="${fallbacks.posterPath}" alt="${fallbacks.title} poster" aria-label="${fallbacks.title} poster">
+                <h3 aria-label="Filmtitel: ${fallbacks.title}">${fallbacks.title}</h3>
+                <p aria-label="Utgivningsår: ${fallbacks.releaseYear}, Betyg: ${fallbacks.voteAverage}/10, Röster: ${fallbacks.voteCount}">${fallbacks.releaseYear} | Betyg: ${fallbacks.voteAverage}/10 (${fallbacks.voteCount} röster)</p>
             `;
 
             // Add a click event listener to show movie details in a modal
@@ -148,6 +148,7 @@ async function populateGenreFilter() {
             const option = document.createElement('option'); // Create a new option element
             option.value = genre.id; // Set the value to the genre ID
             option.textContent = genre.name; // Set the text to the genre name
+            option.setAttribute('aria-label', `Genre: ${genre.name}`); // Lagt till aria-label för genrealternativet
             genreSelect.appendChild(option); // Append the option to the genre select element
         });
     } catch (error) {
@@ -223,18 +224,18 @@ async function searchMovies(query, page) {
 
         // Display movies in the results section
         searchData.results.forEach(movie => {
-            // if (!movie.poster_path) return; // Skip if there is no poster path (kommenterad ut för att inkludera filmer utan poster)
-
             // Get fallback values for the movie
             const fallbacks = getFallbacks(movie, {}); // Använd getFallbacks för att hämta fallback-värden
 
             const movieElement = document.createElement('div'); // Create a new div for the movie
             movieElement.classList.add('movie'); // Add the 'movie' class to the div
+            movieElement.setAttribute('aria-label', `Film: ${fallbacks.title}, Betyg: ${fallbacks.voteAverage}/10`); // Lägg till aria-label
+
             // Set the inner HTML of the movie element with movie details in Swedish
             movieElement.innerHTML = `
-                <img src="${fallbacks.posterPath}" alt="${fallbacks.title} poster">
-                <h3>${fallbacks.title}</h3>
-                <p>${fallbacks.releaseYear} | Betyg: ${fallbacks.voteAverage}/10 (${fallbacks.voteCount} röster)</p>
+                <img src="${fallbacks.posterPath}" alt="${fallbacks.title} poster" aria-label="${fallbacks.title} filmplakat">
+                <h3 aria-label="Filmtitel: ${fallbacks.title}">${fallbacks.title}</h3>
+                <p aria-label="Utgivningsår: ${fallbacks.releaseYear}, Betyg: ${fallbacks.voteAverage}/10, Röster: ${fallbacks.voteCount}">${fallbacks.releaseYear} | Betyg: ${fallbacks.voteAverage}/10 (${fallbacks.voteCount} röster)</p>
             `;
 
             // Add a click event listener to show movie details in a modal
@@ -275,7 +276,7 @@ function getFallbacks(movieDetails, watchProviders) {
         originalLanguage: movieDetails.original_language ? movieDetails.original_language.toUpperCase() : 'Okänt originalspråk',
         streamingProviders: watchProviders.results && watchProviders.results.SE && watchProviders.results.SE.flatrate ? 
             watchProviders.results.SE.flatrate.map(provider => provider.provider_name).join(', ') : 
-            'Vi saknar information om streaming'
+            'Information om streaming saknas'
     };
 }
 
