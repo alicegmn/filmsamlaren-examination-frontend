@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Database</title>
+    <title>Dina listor</title>
     <link rel="stylesheet" href="/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,30 +14,28 @@
 <body>
     <a href="#mainContent" class="skip-link">Gå direkt till huvudinnehållet</a>
     <header>
-        <a href="/html/index.html" aria-label="Gå till startsidan">
-            <img src="/img/logo.png" alt="Logo" class="logo" aria-label="Logotyp för Hemmakvälls Filmsamlare"> <!-- Lägg till logotypen här -->
-        </a>
+        <div class="logo">
+            <a href="/html/index.html" aria-label="Gå till startsidan" class="logo-link">
+                <img src="/img/logo.png" alt="Logo" class="logo" aria-label="Logotyp för Hemmakvälls Filmsamlare"> <!-- Lägg till logotypen här -->
+            </a>
+        </div>
         <nav>
             <ul>
                 <li><a href="/html/index.html" aria-label="Gå till startsidan">Hem</a></li>
-                <li><a href="/html/index.html#searchForm" aria-label="Sök efter filmer">Filmer</a></li>
-                <li><a href="/html/listor.html" aria-label="Gå till dina listor">Dina listor</a></li>
+                <li><a href="/html/listor.html" class="active" aria-label="Gå till dina listor">Dina listor</a></li>
                 <li><a href="/html/om-oss.html" aria-label="Information om Hemmakväll">Om oss</a></li>
             </ul>
         </nav>
-        <h1>Dina listor</h1>
     </header>
     <main id="mainContent">
+        <h1>Dina listor</h1>
         <section class="watch-list">
             <h2>Filmer jag vill se</h2>
-        </section>
-        <section class="findAStore cta-section">
-            <h2>Du har väl snacks till filmen?</h2>
-            <p>Ingen hemmakväll utan godsaker från Hemmakväll.</p>
-            <a href="https://www.hemmakvall.se/hitta-butik/" target="_blank" aria-label="Gå till Hemmakväll.se och hitta närmaste butik Hemmakväll-butik">Hitta din närmasta butik på hemmakvall.se</a>
+            <p>Du har inte lagt till några filmer i listan :(</p>
         </section>
         <section class="favorite-list">
             <h2>Mina favoritfilmer</h2>
+            <p>Du har inte lagt till några filmer i listan :(</p>
         </section>
         <section class="results">
             <!-- Innehåll för resultatsektionen -->
@@ -50,6 +48,14 @@
         <div id="movieModal" class="modal hidden">
             <!-- Filmens information fylls här dynamiskt -->
         </div>
+    </section>
+    <section>
+        <div class="findAStore cta-section">
+        <h2>Snacks till filmen?</h2>
+        <p>Maxa myset med Hemmakväll.</p>
+        <a href="https://www.hemmakvall.se/hitta-butik/" target="_blank" aria-label="Se vart Hemmakvälls butiker finns"><button>Hitta din närmsta butik på hemmakvall.se</button></a>
+    </div>
+    </section>
     </main>
     <footer>
         <div class="footer-container">

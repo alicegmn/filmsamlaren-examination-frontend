@@ -87,12 +87,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             
             const movieElement = document.createElement('div'); // Create a new div for the movie
             movieElement.classList.add('movie'); // Add the 'movie' class to the div
+            movieElement.setAttribute('tabindex', '0'); // Gör elementet fokuserbart
             movieElement.setAttribute('aria-label', `Film: ${fallbacks.title}, Betyg: ${fallbacks.voteAverage}/10`); // Lägg till aria-label
 
             // Set the inner HTML of the movie element with movie details in Swedish
             movieElement.innerHTML = `
                 <div class="movie-overlay" aria-hidden="true">${index + 1}</div>
-                <img src="${fallbacks.posterPath}" alt="${fallbacks.title} poster" aria-label="${fallbacks.title} poster">
+                <img src="${fallbacks.posterPath}" alt="${fallbacks.title} poster" aria-label="${fallbacks.title} filmposter">
                 <h3 aria-label="Filmtitel: ${fallbacks.title}">${fallbacks.title}</h3>
                 <p aria-label="Utgivningsår: ${fallbacks.releaseYear}, Betyg: ${fallbacks.voteAverage}/10, Röster: ${fallbacks.voteCount}">${fallbacks.releaseYear} | Betyg: ${fallbacks.voteAverage}/10 (${fallbacks.voteCount} röster)</p>
             `;
@@ -100,6 +101,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             // Add a click event listener to show movie details in a modal
             movieElement.addEventListener('click', async () => {
                 await showMovieDetails(movie.id); // Call the function to show movie details
+            });
+
+            // Add a keydown event listener to handle Enter key
+            movieElement.addEventListener('keydown', async (event) => {
+                if (event.key === 'Enter') {
+                    await showMovieDetails(movie.id); // Call the function to show movie details
+                }
             });
 
             // Append the movie element to the top ten movies list
@@ -229,6 +237,7 @@ async function searchMovies(query, page) {
 
             const movieElement = document.createElement('div'); // Create a new div for the movie
             movieElement.classList.add('movie'); // Add the 'movie' class to the div
+            movieElement.setAttribute('tabindex', '0'); // Gör elementet fokuserbart
             movieElement.setAttribute('aria-label', `Film: ${fallbacks.title}, Betyg: ${fallbacks.voteAverage}/10`); // Lägg till aria-label
 
             // Set the inner HTML of the movie element with movie details in Swedish
@@ -309,7 +318,6 @@ async function showMovieDetails(movieId) {
         const modal = document.getElementById('movieModal');
         modal.innerHTML = `
         <div class="modal-content">
-            <button class="close-button" aria-label="Stäng ner sidan som visar detaljer om filmen.">Stäng</button>
             <div class="modal-columns">
                 <div class="modalDetailsImg">
                     <img src="${fallbacks.posterPath}" alt="${fallbacks.title} poster" aria-label="${fallbacks.title} poster">
@@ -324,6 +332,7 @@ async function showMovieDetails(movieId) {
                     <p><strong>Originalspråk:</strong> ${fallbacks.originalLanguage}</p>
                     <p><strong>Streama filmen här:</strong> ${streamingText}</p>
                     <p><a href="https://www.themoviedb.org/movie/${movieId}" target="_blank" aria-label="Läs mer om ${fallbacks.title} på TMDB">Läs mer på tmdb.org</a></p>
+                    <button class="close-button" aria-label="Stäng ner sidan som visar detaljer om filmen.">Stäng fönster</button>
                 </div>
             </div>
         </div>`;
@@ -363,11 +372,11 @@ function updatePaginationControls(query, totalResults) {
     paginationSections.forEach(paginationSection => {
         paginationSection.innerHTML = ''; // Clear previous pagination content
 
-        // Display the number of pages and movies
-        const infoText = document.createElement('p'); // Create a new paragraph element
-        infoText.textContent = `Sida ${currentPage} av ${totalPages} | Totalt antal filmer: ${totalResults}`; // Set the text content
-        infoText.classList.add('pagination-info'); // Add a class for styling
-        paginationSection.appendChild(infoText); // Append the info text to the pagination section
+        // Create a container for the pagination controls
+        const paginationContainer = document.createElement('div'); // Create a new div for pagination controls
+        paginationContainer.style.display = 'flex'; // Use flexbox for alignment
+        paginationContainer.style.alignItems = 'center'; // Center items vertically
+        paginationContainer.style.justifyContent = 'space-between'; // Space between items
 
         // If the current page is greater than 1, show the previous button
         if (currentPage > 1) {
@@ -379,8 +388,14 @@ function updatePaginationControls(query, totalResults) {
                 currentPage--; // Decrement the current page
                 await searchMovies(query, currentPage); // Call the search function for the previous page
             });
-            paginationSection.appendChild(prevButton); // Append the previous button to the pagination section
+            paginationContainer.appendChild(prevButton); // Append the previous button to the container
         }
+
+        // Display the number of pages and movies
+        const infoText = document.createElement('p'); // Create a new paragraph element
+        infoText.textContent = `Sida ${currentPage} av ${totalPages} | Totalt antal filmer: ${totalResults}`; // Set the text content
+        infoText.classList.add('pagination-info'); // Add a class for styling
+        paginationContainer.appendChild(infoText); // Append the info text to the container
 
         // If the current page is less than the total pages, show the next button
         if (currentPage < totalPages) {
@@ -392,24 +407,18 @@ function updatePaginationControls(query, totalResults) {
                 currentPage++; // Increment the current page
                 await searchMovies(query, currentPage); // Call the search function for the next page
             });
-            paginationSection.appendChild(nextButton); // Append the next button to the pagination section
+            paginationContainer.appendChild(nextButton); // Append the next button to the container
         }
+
+        paginationSection.appendChild(paginationContainer); // Append the pagination container to the pagination section
     });
 }
-
 // Show notification message to the user
 function showNotification(message, isError = false) {
     const notificationMessageElement = document.getElementById('errorMessage'); // Get the notification message element
     notificationMessageElement.textContent = message; // Set the message text
     const notificationElement = document.getElementById('errorNotification'); // Get the notification element
     notificationElement.classList.remove('hidden'); // Remove the 'hidden' class to show the notification
-
-    // Change the background color based on whether it's an error message or not
-    if (isError) {
-        notificationElement.style.backgroundColor = '#f44336'; // Red for error
-    } else {
-        notificationElement.style.backgroundColor = '#E93BAC'; // Orange for search message
-    }
 }
 
 // Close the notification box

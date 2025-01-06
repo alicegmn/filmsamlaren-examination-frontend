@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sv">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Database</title>
+    <title>Hemmakvälls filmsamlare</title>
     <link rel="stylesheet" href="/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,19 +14,25 @@
 <body>
     <a href="#mainContent" class="skip-link">Gå direkt till huvudinnehållet</a>
     <header>
-        <a href="/html/index.html" aria-label="Gå till startsidan">
-            <img src="/img/logo.png" alt="Logo" class="logo" aria-label="Logotyp för Hemmakvälls Filmsamlare"> <!-- Lägg till logotypen här -->
-        </a>
+        <div class="logo">
+            <a href="/html/index.html" aria-label="Gå till startsidan" class="logo-link">
+                <img src="/img/logo.png" alt="Logo" class="logo" aria-label="Logotyp för Hemmakvälls Filmsamlare"> <!-- Lägg till logotypen här -->
+            </a>
+        </div>
         <nav>
             <ul>
-                <li><a href="/html/index.html" aria-label="Gå till startsidan">Hem</a></li>
-                <li><a href="/html/index.html#searchForm" aria-label="Sök efter filmer">Filmer</a></li>
+                <li><a href="/html/index.html" class="active" aria-label="Gå till startsidan">Hem</a></li>
                 <li><a href="/html/listor.html" aria-label="Gå till dina listor">Dina listor</a></li>
                 <li><a href="/html/om-oss.html" aria-label="Information om oss">Om oss</a></li>
             </ul>
         </nav>
-        <h1>Alla dina filmer - på ett och samma ställe</h1>
     </header>
+        <section class="hero-section" aria-label="Välkommen till Filmsamlaren">
+            <h1>Filmsamlaren</h1>
+            <a href="#mainContent" class="button" aria-label="Gå till sökfunktionen">
+                <button>Hitta en film till hemmakvällen →</button>
+            </a>
+        </section>
     <main>
         <section class="toplist">
             <h2>Veckans topplista</h2>
@@ -34,28 +40,24 @@
                 <!-- Filmlisten kommer att läggas till här dynamiskt -->
             </div>
         </section>
-        <section class="findAStore cta-section">
+        <section>
+            <div class="findAStore cta-section">
             <h2>Snacks till filmen?</h2>
-            <p>Ingen hemmakväll utan godsaker från Hemmakväll.</p>
-            <a href="https://www.hemmakvall.se/hitta-butik/" target="_blank" aria-label="Se vart Hemmakvälls butiker finns">Hitta din närmsta butik</a>
+            <p>Maxa myset med Hemmakväll.</p>
+            <a href="https://www.hemmakvall.se/hitta-butik/" target="_blank" aria-label="Se vart Hemmakvälls butiker finns"><button>Hitta din närmsta butik på hemmakvall.se</button></a>
+        </div>
         </section>
         <section class="search" id="mainContent">
             <h2>Vilken film vill du se idag?</h2>
             <p>Sök efter din nästa favoritfilm. Du kan söka på titel, år och/eller genre:</p>
             <form id="searchForm" role="search">
-                <label for="searchInput">Sök på filmtitel:</label> <!-- Label for the search input -->
                 <input type="text" id="searchInput" placeholder="Sök på filmtitel..." aria-label="Sök på filmtitel">
-                
-                <label for="genreFilter">Välj genre:</label> <!-- Label for the genre filter -->
+                <input type="number" id="yearFilter" placeholder="Sök på utgivningsår" min="1900" max="2024" step="1" aria-label="Ange utgivningsår">
                 <select id="genreFilter" aria-label="Välj genre">
-                    <option value="">Välj en genre:</option>
-                    <!-- Genrer fylls dynamiskt -->
+                    <option value="">Välj genre</option>
+                    <!-- Genrer fylls på dynamiskt -->
                 </select>
-                
-                <label for="yearFilter">Ange år:</label> <!-- Label for the year filter -->
-                <input type="number" id="yearFilter" placeholder="År" min="1900" max="2024" step="1" aria-label="Ange år">
-                
-                <button type="submit" aria-label="Sök efter filmer">Sök</button> <!-- Lagt till aria-label för sökknappen -->
+                <button type="submit" aria-label="Sök efter filmer">Sök efter filmer</button>
             </form>
         </section>        
         <!-- Paginering ovanför resultaten -->
@@ -76,7 +78,7 @@
         </div>
         <div id="errorNotification" class="notification hidden" aria-label="Felmeddelande"> <!-- Lagt till aria-label för felmeddelande -->
             <p id="errorMessage" aria-live="assertive"></p> <!-- Lagt till aria-live för att meddela fel -->
-            <button onclick="closeNotification()" aria-label="Stäng felmeddelandet">Stäng meddelandet</button>
+            <button onclick="closeNotification()">Stäng meddelandet</button>
         </div>
     </main>
     <footer>
@@ -85,7 +87,7 @@
                 <h3>Kontakta oss</h3>
                 <p>Email: info@hemmakvall.se</p>
                 <p>Telefon: 0123-456 789</p>
-                <a href="https://www.hemmakvall.se/hitta-butik/" target="_blank">Hitta närmsta butik</a>
+                <a href="https://www.hemmakvall.se/hitta-butik/" target="_blank" title="Gå till Hemmakväll.se">Hitta närmsta butik</a>
             </div>
             <div class="tmdb-info">
                 <h3>Filmsamlaren</h3>

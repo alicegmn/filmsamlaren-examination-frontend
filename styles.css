@@ -1,12 +1,3 @@
-/* Font och body-styling */
-body {
-    font-family: "Mikado regular", sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: black;
-    color: #fff; /* Detta gör att all text i body är vit */
-}
-
 @font-face {
     font-family: 'Mikado black';
     src: url('/fonts/mikado/HVD\ Fonts\ \ MikadoBlack.otf') format('opentype');
@@ -21,22 +12,15 @@ body {
     font-style: normal;  /* Valfritt: normal, italic, etc. */
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'Mikado black', sans-serif;
-    letter-spacing: 0.06em;
-    text-transform: uppercase; /* Gör alla rubriker till versaler */
-}
-
-body::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)); /* Justera gradienten efter behov */
-    pointer-events: none; /* Gör så att overlay inte påverkar interaktioner */
-    z-index: 1; /* Se till att overlay ligger ovanför bakgrundsbilden */
+/* Font och body-styling */
+body {
+    font-family: "Mikado regular", sans-serif;
+    font-size: clamp(18px, 1.6rem, 21px);
+    line-height: 1.6; /* Förbättrar läsbarheten */
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    color: #fff; /* Detta gör att all text i body är vit */
 }
 
 body * {
@@ -44,11 +28,18 @@ body * {
     z-index: 2; /* Se till att innehållet ligger ovanför overlay */
 }
 
-.logo {
-    width: clamp(2rem, 200px, 20%); /* Justera storleken efter behov */
-    height: auto;
-    margin-right: 10px; /* Avstånd mellan logotyp och titel */
-    vertical-align: middle; /* Justera vertikalt */
+.skip-link {
+    position: absolute; /* Positionera den utanför skärmen */
+    align-content: center;
+    left: -9999px; /* Dölja den från visningen */
+    top: 0; /* Justera positionen */
+    transition: left 0.3s ease; /* Övergångseffekt för att visa den */
+    background: #000;
+}
+
+.skip-link:focus {
+    left: 0; /* Visa den när den får fokus */
+    z-index: 3000   ;
 }
 
 /* Header */
@@ -58,7 +49,17 @@ header {
     align-items: center; /* Centrera horisontellt */
     text-align: center; /* Centrera texten */
     color: #fff; /* Om du vill att texten ska vara vit */
-    padding: 10px 0; /* Justera padding efter behov */
+    padding: 0 10% 0% 10%; /* Justera padding efter behov */
+    font-family: 'Mikado black';
+    font-size: large;
+}
+
+.logo {
+    width: clamp(140px, 25%, 300px); /* Justera storleken efter behov */
+}
+
+.logo-link {
+    display: inline-block; /* Gör så att länken bara täcker logotypens yta */
 }
 
 nav ul {
@@ -69,7 +70,7 @@ nav ul {
 }
 
 nav ul li {
-    margin: 0 15px;
+    margin: 0 10px;
 }
 
 nav ul li a {
@@ -80,142 +81,138 @@ nav ul li a {
 
 nav ul li a.active {
     color: #E93BAC;
-}
-
-/* Overlay för filmens placering */
-.movie {
-    position: relative; /* Gör så att overlay kan positioneras relativt till filmen */
-}
-
-.movie-link {
-    color: #000;
-    text-decoration: underline;
-    cursor: pointer;
-    font-weight: bold;
-    transition: color 0.3s ease;
-}
-
-.movie-link:hover {
-    color: #ccc;
     text-decoration: none;
 }
 
-main {
-    padding: 10vw;
+.hero-section {
+    display: flex; /* Använd flexbox */
+    flex-direction: column; /* Ställ in riktningen till kolumn */
+    justify-content: center; /* Centrera vertikalt */
+    align-items: center; /* Centrera horisontellt */
+    text-align: center; /* Centrera texten */
+    padding: 5% 10% 5% 10%; /* Justera padding efter behov */
 }
+
+.hero-section h1 {
+    margin: 0; /* Ta bort eventuell marginal för att centrera rubriken exakt */
+}
+
+.hero-section a {
+    display: inline-block; /* Gör så att länken beter sig som en blocknivåelement */
+    margin-top: 10px; /* Justera avståndet mellan rubriken och knappen */
+}
+
+main {
+    padding: 0 10% 5% 10%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Mikado black', sans-serif;
+    margin-bottom: 10px; /* Justera till önskad marginal under rubrikerna */
+}
+
+h1 {
+    font-size: clamp(34px, 3rem, 44px);
+    text-transform: uppercase; /* Gör alla h1-rubriker till versaler */
+    text-align: center;
+}
+
+h2 {
+    font-size: clamp(32px, 2rem, 40px);
+    text-align: center;
+}
+
+h3 {
+    font-size: clamp(20px, 1.5rem, 30px);
+}
+
+
+a {
+    cursor: pointer;
+    color: #E93BAC; /* Sätter färgen på alla länkar */
+    text-decoration: underline; /* Gör så att alla länkar är understrukna */
+}
+
+a:hover {
+    color: #6BCABA;
+    text-decoration: none;
+}
+
+p {
+    margin: 0.8rem 0;
+}
+
+strong {
+    font-family: 'Mikado Black';
+}
+
+
+
+/* Standardknapp */
+button {
+    cursor: pointer;
+    background-color: #E93BAC; /* Bakgrundsfärg som matchar din design */
+    color: white; /* Textfärg */
+    padding: 1rem; /* Padding för att ge utrymme */
+    border: none; /* Ingen kantlinje */
+    border-radius: 5px; /* Rundade hörn */
+    font-family: 'Mikado regular';
+    font-size: large;
+    font-weight: normal; /* Fet stil för texten */
+    cursor: pointer; /* Visar pekhanden */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Övergångseffekter */
+}
+
+button:hover {
+    background-color: #d82a8c; /* Mörkare nyans vid hovring */
+    transform: scale(1.05); /* Lätt förstoring vid hovring */
+}
+
+button:active {
+    transform: scale(1); /* Återställ storleken vid klick */
+}
+
+
 
 /* Search and filter form */
 #searchForm {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    flex-direction: column;
+    gap: 15px;
     justify-content: center;
     align-items: center;
     margin-bottom: 20px;
-    background-color: rgba(255, 255, 255, 0.8); /* Ljus bakgrund för kontrast */
-    padding: 15px 20px;
+    background-color: #222;
+    padding: 30px;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 #searchForm input,
-#searchForm select,
-#searchForm button {
-    padding: 10px 15px;
-    font-size: 1em;
-    border: 1px solid #ccc;
+#searchForm select {
+    font-family: 'Mikado regular', sans-serif;
+    font-size: 1rem;
+    padding: 15px;
     border-radius: 5px;
-    outline: none;
+    width: 100%; /* Gör alla fält 100% breda */
 }
 
-#searchInput {
-    flex: 2;
-    min-width: 200px;
-    border: 1px solid #888;
-}
-
-#yearFilter {
-    flex: 1;
-    max-width: 120px;
-    border: 1px solid #888;
-}
-
-#genreFilter {
-    flex: 1;
-    max-width: 180px;
-    border: 1px solid #888;
-}
-
+#searchInput,
+#yearFilter,
+#genreFilter,
 #searchForm button {
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-#searchForm button:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
-}
-
-#searchForm button:active {
-    transform: scale(1);
-}
-
-/* Lägg till detta i din CSS-fil */
-#searchMessage {
-    color: red; /* Färg på meddelandet */
-    font-weight: bold; /* Fet stil */
-    margin: 10px 0; /* Marginal för avstånd */
-}
-
-/* Responsive adjustments for small screens */
-@media (max-width: 768px) {
-    #searchForm {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    #searchInput,
-    #yearFilter,
-    #genreFilter,
-    #searchForm button {
-        width: 100%;
-    }
-}
-
-
-
-/* Search */
-.search {
-    margin-bottom: 20px;
+    width: 100%; /* Se till att knappen också är 100% bred */
 }
 
 /* Results grid */
 .results {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Anpassar kolumner baserat på tillgänglig bredd */
-    gap: 20px;
-}
-
-/* För skärmar som är 768px eller bredare */
-@media (min-width: 768px) {
-    .results {
-        grid-template-columns: repeat(5, 1fr); /* 5 kolumner */
-    }
-}
-
-/* För skärmar som är 1024px eller bredare */
-@media (min-width: 1024px) {
-    .results {
-        grid-template-columns: repeat(5, 1fr); /* 5 kolumner */
-    }
+    grid-template-columns: repeat(2, 1fr); /* 2 kolumner */
+    gap: 26px 16px;
 }
 
 /* Movie card styling */
 .movie {
+    position: relative; /* Gör så att overlay kan positioneras relativt till filmen */
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -236,14 +233,13 @@ main {
 }
 
 .movie h3 {
-    font-size: 1.2em;
     margin: 10px;
 }
 
-.movie p {
-    font-size: 0.9em;
+.movie p {   
     margin: 10px;
-    color: #666;
+    color: #000;
+    font-size: 1rem;
 }
 
 /* Modal styling */
@@ -256,11 +252,12 @@ main {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.9);
 }
 
 .modal-content {
     background-color: #fff;
+    color: #000;
     margin: 10% auto;
     padding: 20px;
     border: 1px solid #888;
@@ -270,19 +267,6 @@ main {
     position: relative;
     display: flex;
     flex-direction: column;
-    color: #000;
-}
-
-.modal-columns {
-    display: flex;
-    flex-direction: row; /* Ändrat till rad för desktop */
-    gap: 20px;
-}
-
-/* Justera bildens stil */
-.modalDetailsImg {
-    flex: 1; /* Gör så att bilden tar upp 50% av bredden */
-    max-width: 50%; /* Maxbredd för desktop */
 }
 
 .modalDetailsImg img {
@@ -291,116 +275,23 @@ main {
     border-radius: 8px;
 }
 
-/* Textinnehåll */
-.modalDetailsText {
-    flex: 1; /* Gör så att texten tar upp 50% av bredden */
-    max-width: 50%; /* Maxbredd för desktop */
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.modal h3 {
+    font-size: xx-large;
+    margin-top: 0;
 }
 
-/* Responsiv justering för mobil */
-@media (max-width: 768px) {
-    .modal-columns {
-        flex-direction: column; /* Ändra till kolumn för mobil */
-    }
-
-    .modalDetailsImg,
-    .modalDetailsText {
-        max-width: 100%; /* Gör så att de tar upp hela bredden */
-    }
-}
-
-.modalDetailsText h2 {
-    font-size: 1.8em;
-    margin-bottom: 10px;
-    color: #000;
-}
-
-.modalDetailsText p {
-    font-size: 1em;
-    line-height: 1.5;
-    margin-bottom: 10px;
-}
-
-.modalDetailsText p strong {
-    color: #333;
-    font-weight: bold;
-}
-
-.tmdb-link {
-    color: #007BFF;
-    text-decoration: none;
-    font-weight: bold;
-    margin-top: 10px;
-    display: inline-block;
-}
-
-.tmdb-link:hover {
-    text-decoration: underline;
-    color: #0056b3;
-}
-
-.streaming-list li a:hover {
-    text-decoration: underline;
-    color: #0056b3;
-}
-
-.close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    color: #000;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    z-index: 10; /* Lägg till ett högt z-index */
-}
-
-.close-button span {
-    font-size: 24px;
-}
-
-.close-button:hover,
-.close-button:focus {
-    color: black;
-    text-decoration: none;
-    outline: none;
-    cursor: pointer;
+.modal button {
+    width: 100%;
 }
 
 /* Pagination */
 .pagination {
+    width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between; /* Dela upp utrymmet mellan barnen */
+    gap: 20px; /* Justera gapet till ett mer rimligt värde */
     margin: 20px 0;
     text-align: center;
-}
-
-.results + .pagination {
-    margin-top: 10px; /* Specifikt för paginering under resultat */
-}
-
-
-.pagination button {
-    background-color: #fff;
-    border: 1px solid #888;
-    border-radius: 5px;
-    padding: 10px 20px;
-    margin: 0 5px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-}
-
-.pagination button:hover {
-    background-color: #ccc;
 }
 
 .pagination-info {
@@ -412,35 +303,17 @@ main {
 
 /* Footer */
 footer {
-    margin: 0; /* Tar bort eventuell margin */
-    padding: 0; /* Tar bort eventuell padding om det finns */
+    padding: 5% 10% 5% 10%;
     position: relative; /* Se till att footern är relativt positionerad */
     bottom: 0; /* Sätter footern till botten av sidan */
-    width: 100%; /* Gör footern full bredd */
     color: #fff;
     text-align: left;
+    background-color: #222; /* Bakgrundsfärg för footern */
+    font-size: medium;
 }
 
 footer img {
-    width: 100px;
-    margin-top: 10px;
-}
-
-.footer-container {
-    display: flex;
-    justify-content: space-between; /* För att fördela kolumnerna jämnt */
-    padding: 20px;
-    background-color: #222; /* Bakgrundsfärg för footern */
-    color: #fff; /* Textfärg */
-}
-
-.footer-container div {
-    flex: 1; /* Gör varje kolumn lika bred */
-    margin: 0 10px; /* Avstånd mellan kolumnerna */
-}
-
-.footer-container h3 {
-    margin-bottom: 10px; /* Avstånd under rubriker */
+    width: 80%;
 }
 
 .social-media ul {
@@ -449,39 +322,11 @@ footer img {
     margin: 0; /* Tar bort eventuell margin */
 }
 
-a {
-    color: #E93BAC; /* Sätter färgen på alla länkar */
-    text-decoration: underline; /* Gör så att alla länkar är understrukna */
-}
-
-/* Overlay för filmens placering */
-.movie-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* Svart transparent bakgrund */
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 3em; /* Större storlek för siffran */
-    font-weight: bold; /* Fet stil */
-    opacity: 1; /* Visar overlay som standard */
-    transition: opacity 0.3s ease; /* Lägger till en övergångseffekt */
-    z-index: 1000; /* Se till att overlay ligger ovanpå bilden */
-}
-
-.movie:hover .movie-overlay {
-    opacity: 0; /* Döljer overlay när man hovrar över filmen */
-}
-
 /* Topplista styling */
 .toplist-results {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(175px, 1fr)); /* Anpassar kolumner baserat på tillgänglig bredd */
-    gap: 20px;
+    grid-template-columns: repeat(2, 1fr); /* 2 kolumner */
+    gap: 26px 16px;
 }
 
 /* Overlay för filmens placering */
@@ -489,23 +334,19 @@ a {
     position: relative; /* Gör så att overlay kan positioneras relativt till filmen */
 }
 
-.movie img {
-    width: 100%; /* Gör så att bilden täcker hela bredden */
-    height: auto; /* Bevara bildens proportioner */
-}
-
 .movie-overlay {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* Svart transparent bakgrund */
+    background-color: rgba(0, 0, 0, 0.4); /* Svart transparent bakgrund */
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 3em; /* Större storlek för siffran */
+    font-family: 'Mikado Black'; /* Specifik typsnitt */
+    font-size: clamp(2rem, 60px, 6rem); /* Större storlek för siffran */
     font-weight: bold; /* Fet stil */
     opacity: 1; /* Visar overlay som standard */
     transition: opacity 0.3s ease; /* Lägger till en övergångseffekt */
@@ -517,42 +358,28 @@ a {
 }
 
 .cta-section {
-    background-color: #E93BAC; /* Bakgrundsfärg för att sticka ut */
-    color: white; /* Textfärg */
+    background-color: #fff; /* Bakgrundsfärg för att sticka ut */
+    background-image: url('img/hemmakvall.jpg'); /* Bakgrundsbild */
+    background-size: cover; /* Gör så att bilden täcker hela div:en */
+    background-position: center;
+    color: #fff; /* Textfärg */
     padding: 1rem; /* Padding för att ge utrymme */
     border-radius: 10px; /* Rundade hörn */
     text-align: center; /* Centrera texten */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Skugga för djup */
-    margin: 20px 0; /* Marginal för att separera från andra sektioner */
-    transition: transform 0.3s; /* Övergångseffekt för hover */
+    margin-top: 20px;
+    position: relative; /* Gör så att overlay kan positioneras relativt till div:en */
 }
 
-.cta-section:hover {
-    transform: scale(1.05); /* Förstora sektionen vid hover */
-}
-
-.cta-section a {
-    background-color: white; /* Bakgrundsfärg för knappen */
-    color: #E93BAC; /* Textfärg för knappen */
-    padding: 10px 20px; /* Padding för knappen */
-    border-radius: 5px; /* Rundade hörn för knappen */
-    text-decoration: none; /* Ta bort understrykning */
-    font-weight: bold; /* Fet stil för knappen */
-    transition: background-color 0.3s; /* Övergångseffekt för hover */
-}
-
-.cta-section h2 {
-    margin-bottom: 0px; /* Minska marginalen mellan rubriken och brödtexten */
-}
-
-.cta-section p {
-    margin-top: 0px;
-    margin-bottom: 20px; /* Öka marginalen mellan brödtexten och knappen */
-}
-
-.cta-section a:hover {
-    background-color: #ccc; /* Ljusare bakgrund vid hover */
-    color: #000;
+/* Overlay */
+.cta-section::before {
+    content: ""; /* Skapa en pseudo-element för overlay */
+    position: absolute; /* Positionera overlayen absolut */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8); /* Svart transparent bakgrund */
+    z-index: 1; /* Se till att overlay ligger ovanpå bilden */
 }
 
 .notification {
@@ -560,9 +387,10 @@ a {
     top: 50%; /* Centrera vertikalt */
     left: 50%; /* Centrera horisontellt */
     transform: translate(-50%, -50%); /* Justera för att centrera exakt */
-    background-color: #ff9800; /* Orange bakgrund */
-    color: white;
+    background-color: #fff;
+    color: #000;
     padding: 15px;
+    border: 3px solid #E93BAC;
     border-radius: 5px;
     z-index: 2000; /* Se till att den ligger ovanpå annat innehåll */
     display: flex;
@@ -578,4 +406,94 @@ a {
 
 .notification.hidden {
     display: none; /* Döljer notifieringsrutan */
+}
+
+.watch-list,
+.favorite-list {
+    text-align: center; /* Centrera all text inom sektionerna */
+    margin: 20px 0; /* Justera marginaler om det behövs */
+}
+
+/* Surfplatta */
+@media (min-width: 768px) {
+    .modal-columns {
+        top: 0;
+        display: flex;
+        flex-direction: row; /* Ändrat till rad för desktop */
+        gap: 20px;
+    }
+    .modalDetailsImg,
+    .modalDetailsText {
+    flex: 1; /* Gör så att bilden tar upp 50% av bredden */
+    max-width: 50%; /* Maxbredd för desktop */
+}
+
+.modalDetailsText {
+    max-width: 100%; /* Maxbredd för desktop */
+    display: flex;
+    flex-direction: column;
+}
+
+.toplist-results {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.results {
+    grid-template-columns: repeat(3, 1fr); /* 3 kolumner */
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.footer-container div {
+    flex: 1;
+}
+
+}
+
+/* CSS för större skärmar som laptops/desktops */
+@media (min-width: 1025px) {
+    #searchForm {
+        display: flex; /* Ändra till flex för att använda flexbox */
+        flex-direction: row; /* Visa elementen i en rad */
+        flex-wrap: wrap; /* Tillåt att elementen bryts till nästa rad om det behövs */
+    }
+
+    #searchInput {
+        flex: 2;
+    }
+    
+    #yearFilter {
+        flex: 1;
+    }
+    
+    #genreFilter {
+        flex: 1;
+    }
+
+    #searchForm button {
+        flex: 1;
+    }
+    
+    .toplist-results {
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+    .results {
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+    header {
+        align-items: left;
+        flex-direction: row; /* Ändra till rad för större skärmar */
+        justify-content: space-between; /* Dela upp utrymmet mellan logotyp och navigering */
+    }
+
+    #about {
+        justify-self: center;
+        width: 60%;
+    }
 }
