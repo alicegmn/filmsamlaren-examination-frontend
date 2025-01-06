@@ -1,45 +1,65 @@
-/* // <uniquifier>: Use a unique and descriptive class name
-// <weight>: Use a value from 100 to 900 */
-
-.raleway {
-  font-family: "Raleway", serif;
-  font-optical-sizing: auto;
-  font-weight: 200;
+@font-face {
+    font-family: 'Mikado black';
+    src: url('/fonts/mikado/HVD\ Fonts\ \ MikadoBlack.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
 }
 
+@font-face {
+    font-family: 'Mikado regular';
+    src: url('/fonts/mikado/HVD\ Fonts\ \ MikadoRegular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Font and body styling */
 body {
-    font-family: "Raleway", serif;
+    font-family: "Mikado regular", sans-serif;
+    font-size: clamp(18px, 1.6rem, 21px);
+    line-height: 1.6; /* Improves readability */
     margin: 0;
     padding: 0;
-    background-image: url('https://cdn.sortiraparis.com/images/80/69688/1094465-gladiator-2-paul-mescal-est-lucius.jpg');
-    background-size: cover; /* Gör så att bilden täcker hela sidan */
-    background-position: center; /* Centrerar bilden */
-    background-repeat: no-repeat; /* Förhindrar att bilden upprepas */
-    height: 100vh; /* Sätter höjden till hela vyhöjden */
-    background-attachment: fixed; /* Gör så att bakgrundsbilden är fast */
-    position: relative; /* Behövs för att ::before ska fungera korrekt */
-}
-
-body::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)); /* Justera gradienten efter behov */
-    pointer-events: none; /* Gör så att overlay inte påverkar interaktioner */
-    z-index: 1; /* Se till att overlay ligger ovanför bakgrundsbilden */
+    background-color: black;
+    color: #fff; /* Makes all text in body white */
 }
 
 body * {
     position: relative;
-    z-index: 2; /* Se till att innehållet ligger ovanför overlay */
+    z-index: 2; /* Ensure content is above overlay */
 }
 
+.skip-link {
+    position: absolute; 
+    align-content: center;
+    left: -9999px; /* Hide from view */
+    top: 0; 
+    transition: left 0.3s ease; /* Transition effect to show it */
+    background: #000;
+}
+
+.skip-link:focus {
+    left: 0; /* Show when focused */
+    z-index: 3000;
+}
+
+/* Header */
 header {
-    color: #fff;
-    padding: 10px 0;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    text-align: center; 
+    color: #fff; 
+    padding: 0 10% 0% 10%; 
+    font-family: 'Mikado black';
+    font-size: large;
+}
+
+.logo {
+    width: clamp(140px, 25%, 300px); 
+}
+
+.logo-link {
+    display: inline-block; 
 }
 
 nav ul {
@@ -50,40 +70,150 @@ nav ul {
 }
 
 nav ul li {
-    margin: 0 15px;
+    margin: 0 10px;
 }
 
 nav ul li a {
     color: #fff;
-    text-decoration: none;
+    text-decoration: underline;
     font-weight: bold;
 }
 
-.toplist {
-    justify-content: center;
-    color: #fff;
+nav ul li a.active {
+    color: #E93BAC;
+    text-decoration: none;
+}
+
+.hero-section {
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    text-align: center; 
+    padding: 5% 10% 5% 10%; 
+}
+
+.hero-section h1 {
+    margin: 0; 
+}
+
+.hero-section a {
+    display: inline-block; 
+    margin-top: 10px; 
 }
 
 main {
-    padding: 3vw;
+    padding: 0 10% 5% 10%;
 }
 
-.search {
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Mikado black', sans-serif;
+    margin-bottom: 10px; 
+}
+
+h1 {
+    font-size: clamp(34px, 3rem, 44px);
+    text-transform: uppercase; 
+    text-align: center;
+}
+
+h2 {
+    font-size: clamp(32px, 2rem, 40px);
+    text-align: center;
+}
+
+h3 {
+    font-size: clamp(20px, 1.5rem, 30px);
+}
+
+a {
+    cursor: pointer;
+    color: #E93BAC; 
+    text-decoration: underline; 
+}
+
+a:hover {
+    color: #6BCABA;
+    text-decoration: none;
+}
+
+p {
+    margin: 0.8rem 0;
+}
+
+strong {
+    font-family: 'Mikado Black';
+}
+
+/* Standard button */
+button {
+    cursor: pointer;
+    background-color: #E93BAC; 
+    color: white; 
+    padding: 1rem; 
+    border: none; 
+    border-radius: 5px; 
+    font-family: 'Mikado regular';
+    font-size: large;
+    font-weight: normal; 
+    transition: background-color 0.3s ease, transform 0.2s ease; 
+}
+
+button:hover {
+    background-color: #d82a8c; 
+    transform: scale(1.05); 
+}
+
+button:active {
+    transform: scale(1); 
+}
+
+/* Search and filter form */
+#searchForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
     margin-bottom: 20px;
+    background-color: #222;
+    padding: 30px;
+    border-radius: 8px;
 }
 
+#searchForm input,
+#searchForm select {
+    font-family: 'Mikado regular', sans-serif;
+    font-size: 1rem;
+    padding: 15px;
+    border-radius: 5px;
+    width: 100%; 
+}
+
+#searchInput,
+#yearFilter,
+#genreFilter,
+#searchForm button {
+    width: 100%; 
+}
+
+/* Results grid */
 .results {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 26px 16px;
 }
 
+/* Movie card styling */
 .movie {
+    position: relative; 
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     transition: transform 0.2s;
+    cursor: pointer;
+    color: #000;
 }
 
 .movie:hover {
@@ -95,31 +225,267 @@ main {
     height: auto;
 }
 
-.movie h2 {
-    font-size: 1.2em;
+.movie h3 {
     margin: 10px;
 }
 
-.movie p {
-    font-size: 0.9em;
+.movie p {   
     margin: 10px;
-    color: #666;
+    color: #000;
+    font-size: 1rem;
 }
 
-footer {
+/* Modal styling */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.modal-content {
+    background-color: #fff;
+    color: #000;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 800px;
+    border-radius: 10px;
     position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.modalDetailsImg img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.modal h3 {
+    font-size: xx-large;
+    margin-top: 0;
+}
+
+.modal button {
+    width: 100%;
+}
+
+/* Pagination */
+.pagination {
+    width: 100%;
+    display: flex;
+    justify-content: space-between; 
+    gap: 20px; 
+    margin: 20px 0;
+    text-align: center;
+}
+
+.pagination-info {
+    margin-bottom: 10px;
+    font-size: 0.9em;
+    color: #666;
+    text-align: center;
+}
+
+/* Footer */
+footer {
+    padding: 5% 10% 5% 10%;
+    position: relative; 
+    bottom: 0; 
     color: #fff;
     text-align: left;
-    padding: 1rem;
-    width: 100%;
-    bottom: 0;
-}
-
-footer p {
-    font-size: 10px;
+    background-color: #222; 
+    font-size: medium;
 }
 
 footer img {
-    width: 100px;
-    margin-top: 10px;
+    width: 80%;
+}
+
+.social-media ul {
+    list-style-type: none; 
+    padding: 0; 
+    margin: 0; 
+}
+
+/* Top list styling */
+.toplist-results {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 26px 16px;
+}
+
+/* Overlay for movie placement */
+.movie {
+    position: relative; 
+}
+
+.movie-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4); 
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Mikado Black'; 
+    font-size: clamp(2rem, 60px, 6rem); 
+    font-weight: bold; 
+    opacity: 1; 
+    transition: opacity 0.3s ease; 
+    z-index: 1000; 
+}
+
+.movie:hover .movie-overlay {
+    opacity: 0; 
+}
+
+.cta-section {
+    background-color: #fff; 
+    background-image: url('img/hemmakvall.jpg'); 
+    background-size: cover; 
+    background-position: center;
+    color: #fff; 
+    padding: 1rem; 
+    border-radius: 10px; 
+    text-align: center; 
+    margin-top: 20px;
+    position: relative; 
+}
+
+/* Overlay */
+.cta-section::before {
+    content: ""; 
+    position: absolute; 
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8); 
+    z-index: 1; 
+}
+
+.notification {
+    position: fixed;
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    background-color: #fff;
+    color: #000;
+    padding: 15px;
+    border: 3px solid #E93BAC;
+    border-radius: 5px;
+    z-index: 2000; 
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    min-width: 300px; 
+    text-align: center; 
+}
+
+.notification button {
+    margin-top: 10px; 
+}
+
+.notification.hidden {
+    display: none; 
+}
+
+.watch-list,
+.favorite-list {
+    text-align: center; 
+    margin: 20px 0; 
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+    .modal-columns {
+        top: 0;
+        display: flex;
+        flex-direction: row; 
+        gap: 20px;
+    }
+    .modalDetailsImg,
+    .modalDetailsText {
+        flex: 1; 
+        max-width: 50%; 
+    }
+
+    .modalDetailsText {
+        max-width: 100%; 
+        display: flex;
+        flex-direction: column;
+    }
+
+    .toplist-results {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .results {
+        grid-template-columns: repeat(3, 1fr); 
+    }
+
+    .footer-container {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+    }
+
+    .footer-container div {
+        flex: 1;
+    }
+}
+
+/* CSS for larger screens like laptops/desktops */
+@media (min-width: 1025px) {
+    #searchForm {
+        display: flex; 
+        flex-direction: row; 
+        flex-wrap: wrap; 
+    }
+
+    #searchInput {
+        flex: 2;
+    }
+    
+    #yearFilter {
+        flex: 1;
+    }
+    
+    #genreFilter {
+        flex: 1;
+    }
+
+    #searchForm button {
+        flex: 1;
+    }
+    
+    .toplist-results {
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+    .results {
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+    header {
+        align-items: left;
+        flex-direction: row; 
+        justify-content: space-between; 
+    }
+
+    #about {
+        justify-self: center;
+        width: 60%;
+    }
 }
