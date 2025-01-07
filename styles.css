@@ -401,10 +401,21 @@ footer img {
     display: none; 
 }
 
-.watch-list,
+/* Favoritlista styling */
 .favorite-list {
-    text-align: center; 
-    margin: 20px 0; 
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 26px 16px;
+}
+
+/* Add to favorites button */
+.favorite-action {
+    margin-bottom: 5px;
+    background-color: #6BCABA;
+}
+
+.favorite-action:hover {
+    background-color: #177a6a;
 }
 
 /* Tablet */
@@ -433,6 +444,10 @@ footer img {
 
     .results {
         grid-template-columns: repeat(3, 1fr); 
+    }
+
+    .favorite-list {
+        grid-template-columns: repeat(3, 1fr);
     }
 
     .footer-container {
@@ -475,6 +490,10 @@ footer img {
     }
 
     .results {
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+    .favorite-list {
         grid-template-columns: repeat(5, 1fr);
     }
 

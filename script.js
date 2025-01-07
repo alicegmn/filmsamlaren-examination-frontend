@@ -1,6 +1,54 @@
 // Define the API key for accessing the movie database API
 const apiKey = 'cff5b2ddfbe3a8666237b019e68daa70';
 
+// Funktion för att hämta favoritfilmer från localStorage
+function getFavorites() {
+    return JSON.parse(localStorage.getItem("favorites")) || [];
+}
+
+// Funktion för att visa favoritfilmer
+function displayFavoriteMovies() {
+    const favoriteListContainer = document.querySelector('.favorite-list');
+    favoriteListContainer.innerHTML = '';
+
+    const favoriteMovies = getFavorites(); // Hämta via funktionen
+
+    if (favoriteMovies.length === 0) {
+        favoriteListContainer.innerHTML = '<p>Du har inga favoritfilmer ännu. Lägg till några för att se dem här!</p>';
+        return;
+    }
+
+    favoriteMovies.forEach(movie => {
+        const movieElement = document.createElement('div');
+        movieElement.classList.add('movie');
+        movieElement.setAttribute('tabindex', '0');
+        movieElement.setAttribute('aria-label', `Film: ${movie.title}, Betyg: ${movie.voteAverage}/10`);
+
+        movieElement.innerHTML = `
+            <img src="${movie.posterPath}" alt="${movie.title} poster">
+            <h3>${movie.title}</h3>
+            <p>Utgivningsår: ${movie.releaseYear}</p>
+            <p>Betyg: ${movie.voteAverage}/10</p>
+        `;
+
+        movieElement.addEventListener('click', async () => {
+            await showMovieDetails(movie.id);
+        });
+
+        movieElement.addEventListener('keydown', async (event) => {
+            if (event.key === 'Enter') {
+                await showMovieDetails(movie.id);
+            }
+        });
+
+        favoriteListContainer.appendChild(movieElement);
+    });
+}
+
+// Kör funktionen när sidan laddas
+document.addEventListener('DOMContentLoaded', displayFavoriteMovies);
+
+
 // Initialize variables to keep track of the current page and total pages
 let currentPage = 1; // Keeps track of the current page
 let totalPages = 1; // Total number of pages returned from the API
@@ -289,38 +337,53 @@ function getFallbacks(movieDetails, watchProviders) {
     };
 }
 
+// Funktion för att spara en film till favoritlistan
+function saveMovieToFavorites(movie) {
+    const favoriteMovies = getFavorites();
+    if (!favoriteMovies.find(item => item.id === movie.id)) {
+        favoriteMovies.push(movie);
+        localStorage.setItem("favorites", JSON.stringify(favoriteMovies));
+        showNotification(`${movie.title} har lagts till i dina favoriter.`, false);
+        displayFavoriteMovies(); // Uppdatera listan
+    } else {
+        showNotification(`${movie.title} finns redan i dina favoriter.`, true);
+    }
+}
+
+function removeMovieFromFavorites(movieId) {
+    const favoriteMovies = getFavorites().filter(movie => movie.id !== movieId);
+    localStorage.setItem("favorites", JSON.stringify(favoriteMovies));
+    showNotification('Filmen har tagits bort från dina favoriter.', false);
+    displayFavoriteMovies(); // Uppdatera listan
+}
+
+
+
 // Funktion för att visa filmens detaljer
 async function showMovieDetails(movieId) {
     try {
         // Fetch movie details, credits, and watch providers
         const [movieDetails, credits, watchProviders] = await Promise.all([
-            fetchFromApi(`movie/${movieId}`), // Movie details
-            fetchFromApi(`movie/${movieId}/credits`), // Credits to find the director
-            fetchFromApi(`movie/${movieId}/watch/providers`) // Watch providers
+            fetchFromApi(`movie/${movieId}`),
+            fetchFromApi(`movie/${movieId}/credits`),
+            fetchFromApi(`movie/${movieId}/watch/providers`)
         ]);
 
-        // Check for streaming providers in the SE region
-        const regionCode = 'SE'; // Update to the desired region
+        const regionCode = 'SE';
         const streamingProviders = watchProviders.results[regionCode]?.flatrate || [];
-
-        // Add credits data to movieDetails for fallbacks
         movieDetails.credits = credits;
 
-        // Get fallback values
         const fallbacks = getFallbacks(movieDetails, watchProviders);
-
-        // Use streaming providers if available
         const streamingText = streamingProviders.length > 0
             ? streamingProviders.map(provider => provider.provider_name).join(', ')
             : 'Inte tillgänglig i din region.';
 
-        // Build the modal content
         const modal = document.getElementById('movieModal');
         modal.innerHTML = `
         <div class="modal-content">
             <div class="modal-columns">
                 <div class="modalDetailsImg">
-                    <img src="${fallbacks.posterPath}" alt="${fallbacks.title} poster" aria-label="${fallbacks.title} poster">
+                    <img src="${fallbacks.posterPath}" alt="${fallbacks.title} poster">
                 </div>
                 <div class="modalDetailsText">
                     <h3>${fallbacks.title}</h3>
@@ -331,26 +394,52 @@ async function showMovieDetails(movieId) {
                     <p><strong>Regissör:</strong> ${fallbacks.director}</p>
                     <p><strong>Originalspråk:</strong> ${fallbacks.originalLanguage}</p>
                     <p><strong>Streama filmen här:</strong> ${streamingText}</p>
-                    <p><a href="https://www.themoviedb.org/movie/${movieId}" target="_blank" aria-label="Läs mer om ${fallbacks.title} på TMDB">Läs mer på tmdb.org</a></p>
-                    <button class="close-button" aria-label="Stäng ner sidan som visar detaljer om filmen.">Stäng fönster</button>
+                    <p><a href="https://www.themoviedb.org/movie/${movieId}" target="_blank">Läs mer på tmdb.org</a></p>
+                    <button class="favorite-action"></button>
+                    <button class="close-button">Stäng fönster</button>
                 </div>
             </div>
         </div>`;
 
-        // Show the modal
+        const favoriteActionButton = modal.querySelector('.favorite-action');
+
+        // Funktion för att uppdatera knappens status och text
+        const updateFavoriteButton = () => {
+            const isFavorite = getFavorites().some(movie => movie.id === movieDetails.id);
+            favoriteActionButton.textContent = isFavorite ? 'Ta bort från favoriter' : 'Lägg till i favoriter';
+            favoriteActionButton.classList.toggle('in-favorites', isFavorite); // Lägg till en klass för styling om den är i favoriter
+        };
+
+        updateFavoriteButton(); // Uppdatera knappens initiala status
+
+        // Lägg till klickhändelse för att hantera tillägg/ta bort
+        favoriteActionButton.addEventListener('click', () => {
+            const isFavorite = getFavorites().some(movie => movie.id === movieDetails.id);
+
+            if (isFavorite) {
+                removeMovieFromFavorites(movieDetails.id);
+                showNotification(`${fallbacks.title} har tagits bort från favoriter.`, false);
+            } else {
+                saveMovieToFavorites({
+                    id: movieDetails.id,
+                    title: fallbacks.title,
+                    posterPath: fallbacks.posterPath,
+                    releaseYear: fallbacks.releaseYear,
+                    voteAverage: fallbacks.voteAverage
+                });
+                showNotification(`${fallbacks.title} har lagts till i favoriter.`, false);
+            }
+
+            updateFavoriteButton(); // Uppdatera knappens status efter åtgärd
+            displayFavoriteMovies(); // Uppdatera favoritlistan i realtid
+        });
+
         modal.classList.remove('hidden');
         modal.style.display = 'block';
 
-        // Add event listeners for closing the modal
         const closeButton = modal.querySelector('.close-button');
         closeButton.addEventListener('click', () => {
             modal.style.display = 'none';
-        });
-
-        window.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape') {
-                modal.style.display = 'none';
-            }
         });
 
         modal.addEventListener('click', (event) => {
@@ -358,8 +447,14 @@ async function showMovieDetails(movieId) {
                 modal.style.display = 'none';
             }
         });
+
+        window.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                modal.style.display = 'none';
+            }
+        });
     } catch (error) {
-        console.error('Error fetching movie details or watch providers:', error);
+        console.error('Error fetching movie details:', error);
         showNotification('Ett fel inträffade när filmens detaljer skulle hämtas.', true);
     }
 }
@@ -425,4 +520,9 @@ function showNotification(message, isError = false) {
 function closeNotification() {
     const notificationElement = document.getElementById('errorNotification'); // Get the notification element
     notificationElement.classList.add('hidden'); // Add the 'hidden' class to hide the notification
+}
+
+// Funktion för att hämta nuvarande favoritfilmer
+function getFavorites() {
+    return JSON.parse(localStorage.getItem("favorites")) || []; // Hämta favoritfilmer eller en tom lista
 }

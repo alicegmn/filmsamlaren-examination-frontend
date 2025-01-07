@@ -28,26 +28,26 @@
         </nav>
     </header>
     <main id="mainContent">
-        <h1>Dina listor</h1>
+
+        <section>
+            <h2>Dina favoritfilmer</h2>
+            <div class="favorite-list">
+                <!-- Dynamiskt genererat innehåll här -->
+                <p>Du har inga favoritfilmer ännu. Lägg till några för att se dem här!</p>
+            </div>
+        </section>
+        
         <section class="watch-list">
-            <h2>Filmer jag vill se</h2>
-            <p>Du har inte lagt till några filmer i listan :(</p>
+            <h2>Din watchlist</h2>
+            <p>Funktionen lanseras inom kort!</p>
         </section>
-        <section class="favorite-list">
-            <h2>Mina favoritfilmer</h2>
-            <p>Du har inte lagt till några filmer i listan :(</p>
-        </section>
-        <section class="results">
-            <!-- Content for the results section -->
-        </section>
-        <!-- Pagination under the results -->
-        <section class="pagination">
-            <!-- Navigation buttons for pagination will be added here -->
-        </section>
+
+
         <!-- Modal to show movie details -->
         <div id="movieModal" class="modal hidden">
             <!-- Movie information will be filled here dynamically -->
         </div>
+
     </section>
     <section>
         <div class="findAStore cta-section">
@@ -56,6 +56,10 @@
         <a href="https://www.hemmakvall.se/hitta-butik/" target="_blank" aria-label="Se vart Hemmakvälls butiker finns"><button>Hitta din närmsta butik på hemmakvall.se</button></a>
     </div>
     </section>
+    <div id="errorNotification" class="notification hidden" aria-label="Felmeddelande"> <!-- Lagt till aria-label för felmeddelande -->
+        <p id="errorMessage" aria-live="assertive"></p> <!-- Lagt till aria-live för att meddela fel -->
+        <button onclick="closeNotification()">Stäng meddelandet</button>
+    </div>
     </main>
     <footer>
         <div class="footer-container">
